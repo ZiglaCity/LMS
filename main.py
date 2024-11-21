@@ -42,7 +42,7 @@ def main_window():
     
     root.mainloop()
 
-# Function to handle navigation (you can add logic for different phases here)
+# Function to handle navigation (Later add logic for different phases here)
 def navigate_to(phase):
     print(f"Navigating to: {phase}")
 
