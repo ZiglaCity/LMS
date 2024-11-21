@@ -116,9 +116,6 @@ def navigate_to(phase):
 def add_phase():
     root.title("Zigla's LMS - Add Books")
     
-    # Styling
-    button_style = {"font": ("Arial", 12), "bg": "#f0f0f0", "relief": "groove", "width": 12}
-    
     # Navigation bar frame
     nav_frame = tk.Frame(root, bg="#cccccc", height=50)
     nav_frame.pack(side="top", fill="x")
@@ -126,45 +123,62 @@ def add_phase():
     # Buttons in the navigation bar
     buttons = ["Add", "Search", "Borrow", "Return", "View"]
     for btn_text in buttons:
-        btn = tk.Button(nav_frame, text=btn_text, **button_style, command=lambda b=btn_text: navigate_to(b))
+        btn = tk.Button(
+            nav_frame, 
+            text=btn_text, 
+            bg=theme["button_bg"], 
+            font=theme["button_font"], 
+            relief="groove", 
+            width=12, 
+            command=lambda b=btn_text: navigate_to(b)
+        )
         btn.pack(side="left", padx=5, pady=5)
     
-    settings_btn = tk.Button(nav_frame, text="Settings", **button_style, command=lambda: navigate_to("Settings"))
+    settings_btn = tk.Button(
+        nav_frame, 
+        text="Settings", 
+        bg=theme["button_bg"], 
+        font=theme["button_font"], 
+        relief="groove", 
+        width=12, 
+        command=lambda: navigate_to("Settings")
+    )
     settings_btn.pack(side="right", padx=5, pady=5)
 
-     # Title
     title_label = tk.Label(
-        root,
-        text="Adding books to library...",
-        font=("Helvetica", 16, "bold"),
+        root, 
+        text="Adding books to library...", 
+        font=("Helvetica", 16, "bold"), 
+        bg=theme["background"], 
         anchor="center"
     )
     title_label.pack(pady=20)
 
     # Form Frame
-    form_frame = ttk.Labelframe(root, text="Fill form to add books", padding=10)
-    form_frame.pack(pady=20, padx=20, fill=tk.X)
+    form_frame = ttk.Labelframe(root, text="Fill form to add books", padding=20)
+    form_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
+    # fix frame style later
+    form_frame.configure(style="TLabelframe")
         
     # Individual entries
-    title_entry = ttk.Entry(form_frame, width=40)
-    genre_entry = ttk.Entry(form_frame, width=40)
-    author_entry = ttk.Entry(form_frame, width=40)
-    isbn_entry = ttk.Entry(form_frame, width=40)
+    title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
     # Placement
-    ttk.Label(form_frame, text="Title:", anchor="w", width=10).grid(row=0, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Title:", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
     title_entry.grid(row=0, column=1, pady=5)
 
-    ttk.Label(form_frame, text="Genre:", anchor="w", width=10).grid(row=1, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Genre:", anchor="w",font=theme["label_font"], width=10).grid(row=1, column=0, pady=5, sticky="w")
     genre_entry.grid(row=1, column=1, pady=5)
 
-    ttk.Label(form_frame, text="Author:", anchor="w", width=10).grid(row=2, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Author:", anchor="w",font=theme["label_font"], width=10).grid(row=2, column=0, pady=5, sticky="w")
     author_entry.grid(row=2, column=1, pady=5)
 
-    ttk.Label(form_frame, text="ISBN:", anchor="w", width=10).grid(row=3, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="ISBN:", anchor="w",font=theme["label_font"], width=10).grid(row=3, column=0, pady=5, sticky="w")
     isbn_entry.grid(row=3, column=1, pady=5)
 
-    # Save Button
     save_button = ttk.Button(
         form_frame, 
         text="Save", 
