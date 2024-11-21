@@ -204,11 +204,9 @@ def search_phase():
     print("Search phase activated")
     root.title("Zigla's LMS - Search Books")
     
-    # Navigation bar frame
     nav_frame = tk.Frame(root, bg="#cccccc", height=50)
     nav_frame.pack(side="top", fill="x")
     
-    # Buttons in the navigation bar
     buttons = ["Add", "Search", "Borrow", "Return", "View"]
     for btn_text in buttons:
         btn = tk.Button(
@@ -242,19 +240,16 @@ def search_phase():
     )
     title_label.pack(pady=20)
 
-    # Form Frame
     form_frame = ttk.Labelframe(root, text="Input any detial to search", padding=20)
     form_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
     # fix frame style later
     form_frame.configure(style="TLabelframe")
         
-    # Individual entries
     title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
-    # Placement
     ttk.Label(form_frame, text="Title:", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
     title_entry.grid(row=0, column=1, pady=5)
 
