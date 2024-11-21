@@ -12,6 +12,19 @@ def get_greeting():
     else:
         return "Good evening"
 
+def save_book(title_entry, genre_entry, author_entry, isbn_entry):
+    # Retrieve values
+    title = title_entry.get().strip()
+    genre = genre_entry.get().strip()
+    author = author_entry.get().strip()
+    isbn = isbn_entry.get().strip()
+
+    # Example: Print to console (or add logic to store in the database)
+    if title and genre and author and isbn:
+        print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
+    else:
+        print("All fields are required!")
+
 # Main window setup
 def main_window():
     global root
@@ -112,7 +125,11 @@ def add_phase():
     isbn_entry.grid(row=3, column=1, pady=5)
 
     # Save Button
-    save_button = ttk.Button(form_frame, text="Save")
+    save_button = ttk.Button(
+        form_frame, 
+        text="Save", 
+        command=lambda: save_book(title_entry, genre_entry, author_entry, isbn_entry)
+    )
     save_button.grid(row=4, column=0, columnspan=2, pady=10)
 
     
