@@ -63,6 +63,13 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
     else:
         print("Input at least one field to search!")
 
+def borrow_action(entries):
+    data = {field: entry.get() for field, entry in entries.items()}
+    print("Borrow Request Submitted:")
+    for field, value in data.items():
+        print(f"{field.capitalize()}: {value}")
+
+
 # Main window setup
 def main_window():
     global root
@@ -270,9 +277,73 @@ def search_phase():
     search_button.grid(row=4, column=0, columnspan=2, pady=10)
 
     
-
 def borrow_phase():
-    print("Borrow phase activated")
+    root.title("Zigla's LMS - Borrow Books")
+
+    nav_frame = tk.Frame(root, bg="#cccccc", height=50)
+    nav_frame.pack(side="top", fill="x")
+
+    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    for btn_text in buttons:
+        btn = tk.Button(
+            nav_frame,
+            text=btn_text,
+            bg=theme["button_bg"],
+            font=theme["button_font"],
+            relief="groove",
+            width=12,
+            command=lambda b=btn_text: navigate_to(b)
+        )
+        btn.pack(side="left", padx=5, pady=5)
+
+    settings_btn = tk.Button(
+        nav_frame,
+        text="Settings",
+        bg=theme["button_bg"],
+        font=theme["button_font"],
+        relief="groove",
+        width=12,
+        command=lambda: navigate_to("Settings")
+    )
+    settings_btn.pack(side="right", padx=5, pady=5)
+
+    title_label = tk.Label(
+        root, 
+        text="Borrow book from library...", 
+        font=("Helvetica", 16, "bold"), 
+        bg=theme["background"], 
+        anchor="center"
+    )
+    title_label.pack(pady=20)
+
+    content_frame = ttk.Labelframe(root, text="Input any detial to borrow", padding=20)
+    content_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
+    # fix frame style later
+    content_frame.configure(style="TLabelframe")
+ 
+    # Configure grid in content frame
+    content_frame.grid_columnconfigure(0, weight=1)
+    content_frame.grid_columnconfigure(1, weight=2)
+    for i in range(8):
+        content_frame.grid_rowconfigure(i, weight=1)
+
+    # Create labels and entry fields
+    labels = ["Name", "ID", "Email", "Title of Book", "Genre", "Author", "ISBN"]
+    entries = {}
+
+    for i, label in enumerate(labels):
+        tk.Label(content_frame, text=label, font=("Arial", 14), bg="white").grid(
+            row=i, column=0,pady=5, sticky="e"
+        )
+        entry = ttk.Entry(content_frame, font=("Arial", 14))
+        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entries[label.lower()] = entry
+
+    borrow_button = ttk.Button(
+        content_frame, text="Borrow", command=lambda: borrow_action(entries)
+    )
+    borrow_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
+
 
 
 def return_phase():
