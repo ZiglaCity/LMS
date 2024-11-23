@@ -52,7 +52,6 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
 
 
 def search_book(title_entry, genre_entry, author_entry, isbn_entry):
-    # Retrieve values
     title = title_entry.get().strip()
     genre = genre_entry.get().strip()
     author = author_entry.get().strip()
@@ -64,6 +63,12 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
         print("Input at least one field to search!")
 
 def borrow_action(entries):
+    data = {field: entry.get() for field, entry in entries.items()}
+    print("Borrow Request Submitted:")
+    for field, value in data.items():
+        print(f"{field.capitalize()}: {value}")
+
+def return_action(entries):
     data = {field: entry.get() for field, entry in entries.items()}
     print("Borrow Request Submitted:")
     for field, value in data.items():
@@ -115,7 +120,7 @@ def main_window():
     
     root.mainloop()
 
-# Function to handle navigation (Later add logic for different phases here)
+# Function to handle navigation
 def navigate_to(phase):
     for widgets in root.winfo_children():
         widgets.destroy()
@@ -173,19 +178,14 @@ def add_phase():
     )
     title_label.pack(pady=20)
 
-    # Form Frame
     form_frame = ttk.Labelframe(root, text="Fill form to add books", padding=20)
     form_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
-    # fix frame style later
-    form_frame.configure(style="TLabelframe")
         
-    # Individual entries
     title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
-    # Placement
     ttk.Label(form_frame, text="Title:", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
     title_entry.grid(row=0, column=1, pady=5)
 
@@ -335,14 +335,6 @@ def borrow_phase():
 
     content_frame = ttk.Labelframe(root, text="Input book details", padding=20)
     content_frame.pack(pady=20, padx=20, expand=True)
- 
-    # Configure grid in content frame
-    # content_frame.grid_columnconfigure(0, weight=1)
-    # content_frame.grid_columnconfigure(1, weight=2)
-    # for i in range(8):
-    #     content_frame.grid_rowconfigure(i, weight=1)
-
-    # Create labels and entry fields
 
 
     for i, label in enumerate(details):
@@ -429,7 +421,7 @@ def return_phase():
         entries[label.lower()] = entry
 
     return_button = ttk.Button(
-        content_frame, text="Borrow", command=lambda: borrow_action(entries)
+        content_frame, text="Borrow", command=lambda: return_action(entries)
     )
     return_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
 
