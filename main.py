@@ -179,7 +179,7 @@ def add_phase():
     title_label.pack(pady=20)
 
     form_frame = ttk.Labelframe(root, text="Fill form to add books", padding=20)
-    form_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
+    form_frame.pack(pady=20, padx=20, expand=True)
         
     title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
@@ -248,7 +248,7 @@ def search_phase():
     title_label.pack(pady=20)
 
     form_frame = ttk.Labelframe(root, text="Input any detial to search", padding=20)
-    form_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
+    form_frame.pack(pady=20, padx=20, expand=True)
     # fix frame style later
     form_frame.configure(style="TLabelframe")
         
