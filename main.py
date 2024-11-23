@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
+import sqlite3
 
 # Function to determine greeting based on time
 def get_greeting():
@@ -11,6 +12,44 @@ def get_greeting():
         return "Good afternoon"
     else:
         return "Good evening"
+
+database = "ZigsLMS.db"
+conn = sqlite3.connect(database)
+cursor = conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT,
+                author TEXT,
+                genre TEXT,
+                isbn TEXT,
+                is_borrowed BOOLEAN,
+                borrower_id INTEGER
+    
+)''') 
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
+               borrower_id INTEGER PRIMARY KEY AUTOINCREMENT,
+               name TEXT,
+               email TEXT,
+               returned BOOLEAN
+               )''')
+
+
+# cursor.execute('''INSERT INTO books(title, genre) VALUES('The One Thing', "Motivation")''')
+
+# conn.commit()
+
+cursor.execute('''SELECT * FROM books''')
+
+rows = cursor.fetchall()
+
+# cursor.close()
+# conn.close()
+
+for row in rows:
+    print(row)
+
 
 
 defualt_theme = "light"
@@ -49,6 +88,22 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
         print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
     else:
         print("All fields are required!")
+    
+    # saving book into database
+    cursor.execute('''INSERT INTO books(title, author, genre,  isbn)
+                    VALUES(?,?,?,?)''',
+                   (title, author, genre, isbn)
+                   )
+    
+    conn.commit()
+
+    cursor.execute('''SELECT * FROM books''')
+
+    rows = cursor.fetchall()
+
+    for row in rows:
+        print(row)
+    
 
 
 def search_book(title_entry, genre_entry, author_entry, isbn_entry):
