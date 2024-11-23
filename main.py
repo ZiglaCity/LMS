@@ -315,23 +315,37 @@ def borrow_phase():
         anchor="center"
     )
     title_label.pack(pady=20)
-
-    content_frame = ttk.Labelframe(root, text="Input any detial to borrow", padding=20)
-    content_frame.pack(pady=20, padx=20, expand=True, fill=tk.BOTH)
-    # fix frame style later
-    content_frame.configure(style="TLabelframe")
- 
-    # Configure grid in content frame
-    content_frame.grid_columnconfigure(0, weight=1)
-    content_frame.grid_columnconfigure(1, weight=2)
-    for i in range(8):
-        content_frame.grid_rowconfigure(i, weight=1)
-
-    # Create labels and entry fields
-    labels = ["Name", "ID", "Email", "Title of Book", "Genre", "Author", "ISBN"]
+    
+    borrower = ["Name", "ID", "Email"]
+    details =  ["Title", "Genre", "Author", "ISBN"]
     entries = {}
 
-    for i, label in enumerate(labels):
+    
+    borrower_frame = ttk.Labelframe(root, text="Input borrower details", padding=20)
+    borrower_frame.pack(pady=20, padx=20, expand=True)
+
+    for i, label in enumerate(borrower):
+        tk.Label(borrower_frame, text=label, font=("Arial", 14), bg="white").grid(
+            row=i, column=0,pady=5, sticky="e"
+        )
+        entry = ttk.Entry(borrower_frame, font=("Arial", 14))
+        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entries[label.lower()] = entry
+
+
+    content_frame = ttk.Labelframe(root, text="Input book details", padding=20)
+    content_frame.pack(pady=20, padx=20, expand=True)
+ 
+    # Configure grid in content frame
+    # content_frame.grid_columnconfigure(0, weight=1)
+    # content_frame.grid_columnconfigure(1, weight=2)
+    # for i in range(8):
+    #     content_frame.grid_rowconfigure(i, weight=1)
+
+    # Create labels and entry fields
+
+
+    for i, label in enumerate(details):
         tk.Label(content_frame, text=label, font=("Arial", 14), bg="white").grid(
             row=i, column=0,pady=5, sticky="e"
         )
