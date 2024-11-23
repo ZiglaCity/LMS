@@ -15,7 +15,7 @@ def get_greeting():
         return "Good evening"
 
 def on_closing():
-    response = messagebox.askokcancel("Quit", "Do you want to quit?")
+    response = messagebox.askyesno("Quit", "Do you want to quit?")
     if response:
         if conn:
             cursor.close()
@@ -105,6 +105,7 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
         print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
     else:
         print("All fields are required!")
+        messagebox.askokcancel("Prompt", "Please input book details to be saved.")
     
 
 
