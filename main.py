@@ -309,7 +309,7 @@ def borrow_phase():
 
     title_label = tk.Label(
         root, 
-        text="Borrow book from library...", 
+        text="Borrowing book from library...", 
         font=("Helvetica", 16, "bold"), 
         bg=theme["background"], 
         anchor="center"
@@ -362,6 +362,77 @@ def borrow_phase():
 
 def return_phase():
     print("Return phase activated")
+    root.title("Zigla's LMS - Return Books")
+
+    nav_frame = tk.Frame(root, bg="#cccccc", height=50)
+    nav_frame.pack(side="top", fill="x")
+
+    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    for btn_text in buttons:
+        btn = tk.Button(
+            nav_frame,
+            text=btn_text,
+            bg=theme["button_bg"],
+            font=theme["button_font"],
+            relief="groove",
+            width=12,
+            command=lambda b=btn_text: navigate_to(b)
+        )
+        btn.pack(side="left", padx=5, pady=5)
+
+    settings_btn = tk.Button(
+        nav_frame,
+        text="Settings",
+        bg=theme["button_bg"],
+        font=theme["button_font"],
+        relief="groove",
+        width=12,
+        command=lambda: navigate_to("Settings")
+    )
+    settings_btn.pack(side="right", padx=5, pady=5)
+
+    title_label = tk.Label(
+        root, 
+        text="Returning book to library...", 
+        font=("Helvetica", 16, "bold"), 
+        bg=theme["background"], 
+        anchor="center"
+    )
+    title_label.pack(pady=20)
+    
+    returner = ["Name", "ID", "Email"]
+    details =  ["Title", "Genre", "Author", "ISBN"]
+    entries = {}
+
+    
+    returner_frame = ttk.Labelframe(root, text="Input returnee details", padding=20)
+    returner_frame.pack(pady=20, padx=20, expand=True)
+
+    for i, label in enumerate(returner):
+        tk.Label(returner_frame, text=label, font=("Arial", 14), bg="white").grid(
+            row=i, column=0,pady=5, sticky="e"
+        )
+        entry = ttk.Entry(returner_frame, font=("Arial", 14))
+        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entries[label.lower()] = entry
+
+
+    content_frame = ttk.Labelframe(root, text="Input book details", padding=20)
+    content_frame.pack(pady=20, padx=20, expand=True)
+
+    for i, label in enumerate(details):
+        tk.Label(content_frame, text=label, font=("Arial", 14), bg="white").grid(
+            row=i, column=0,pady=5, sticky="e"
+        )
+        entry = ttk.Entry(content_frame, font=("Arial", 14))
+        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entries[label.lower()] = entry
+
+    return_button = ttk.Button(
+        content_frame, text="Borrow", command=lambda: borrow_action(entries)
+    )
+    return_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
+
 
 
 def view_phase():
