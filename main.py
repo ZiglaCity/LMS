@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from datetime import datetime
 import sqlite3
 
@@ -12,6 +13,16 @@ def get_greeting():
         return "Good afternoon"
     else:
         return "Good evening"
+
+def on_closing():
+    response = messagebox.askokcancel("Quit", "Do you want to quit?")
+    if response:
+        if conn:
+            cursor.close()
+            conn.close()
+            print("Connection closed")
+        root.destroy()
+
 
 database = "ZigsLMS.db"
 conn = sqlite3.connect(database)
@@ -36,16 +47,11 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
                )''')
 
 
-# cursor.execute('''INSERT INTO books(title, genre) VALUES('The One Thing', "Motivation")''')
-
-# conn.commit()
 
 cursor.execute('''SELECT * FROM books''')
 
 rows = cursor.fetchall()
 
-# cursor.close()
-# conn.close()
 
 for row in rows:
     print(row)
@@ -134,6 +140,9 @@ def main_window():
     root.title("Zigla's LMS")
     root.geometry("800x400")
     root.configure(bg=theme["background"])
+
+    root.protocol("WM_DELETE_WINDOW", on_closing)
+
     
     # Navigation bar frame
     nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
