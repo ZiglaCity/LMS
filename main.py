@@ -89,6 +89,7 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
     else:
         print("All fields are required!")
     
+    
     # saving book into database
     cursor.execute('''INSERT INTO books(title, author, genre,  isbn)
                     VALUES(?,?,?,?)''',
@@ -103,7 +104,6 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
 
     for row in rows:
         print(row)
-    
 
 
 def search_book(title_entry, genre_entry, author_entry, isbn_entry):
