@@ -464,7 +464,6 @@ def home_phase():
 
 
 
-
 # Run the main window
 if __name__ == "__main__":
     main_window()
