@@ -1,0 +1,2 @@
+# Ignore the database i'm using to test the app's functionality
+/ZigsLMS.db
