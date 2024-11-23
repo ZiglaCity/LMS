@@ -84,7 +84,7 @@ def main_window():
     nav_frame.pack(side="top", fill="x")
     
     # Buttons in the navigation bar
-    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
     for btn_text in buttons:
         btn = tk.Button(
             nav_frame, 
@@ -128,8 +128,8 @@ def navigate_to(phase):
         borrow_phase()
     elif phase == "Return":
         return_phase()
-    elif phase == "View":
-        view_phase()
+    elif phase == "Home":
+        home_phase()
 
 
 def add_phase():
@@ -140,7 +140,7 @@ def add_phase():
     nav_frame.pack(side="top", fill="x")
     
     # Buttons in the navigation bar
-    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
     for btn_text in buttons:
         btn = tk.Button(
             nav_frame, 
@@ -214,7 +214,7 @@ def search_phase():
     nav_frame = tk.Frame(root, bg="#cccccc", height=50)
     nav_frame.pack(side="top", fill="x")
     
-    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
     for btn_text in buttons:
         btn = tk.Button(
             nav_frame, 
@@ -283,7 +283,7 @@ def borrow_phase():
     nav_frame = tk.Frame(root, bg="#cccccc", height=50)
     nav_frame.pack(side="top", fill="x")
 
-    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
     for btn_text in buttons:
         btn = tk.Button(
             nav_frame,
@@ -367,7 +367,7 @@ def return_phase():
     nav_frame = tk.Frame(root, bg="#cccccc", height=50)
     nav_frame.pack(side="top", fill="x")
 
-    buttons = ["Add", "Search", "Borrow", "Return", "View"]
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
     for btn_text in buttons:
         btn = tk.Button(
             nav_frame,
@@ -435,8 +435,9 @@ def return_phase():
 
 
 
-def view_phase():
-    print("View phase activated")
+def home_phase():
+    print("Home phase activated")
+
 
 
 
