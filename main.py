@@ -439,11 +439,9 @@ def home_phase():
     print("Home phase activated")
     root.title("Zigla's LMS")
     
-    # Navigation bar frame
     nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
     nav_frame.pack(side="top", fill="x")
     
-    # Buttons in the navigation bar
     buttons = ["Add", "Search", "Borrow", "Return", "Home"]
     for btn_text in buttons:
         btn = tk.Button(
@@ -468,7 +466,6 @@ def home_phase():
     )
     settings_btn.pack(side="right", padx=5, pady=5)
     
-    # Greeting message in the center
     greeting = f"{get_greeting()}, Welcome to Zigla's LMS"
     greeting_label = tk.Label(root, text=greeting, font=theme["greeting_font"], bg=theme["background"], fg="#333")
     greeting_label.pack(expand=True)
