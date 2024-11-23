@@ -85,25 +85,21 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
     if title and genre and author:
         if not isbn:
             isbn = None
+            # saving book into database
+            cursor.execute('''INSERT INTO books(title, author, genre,  isbn)
+                            VALUES(?,?,?,?)''',
+                        (title, author, genre, isbn)
+                        ) 
+            conn.commit()
+            cursor.execute('''SELECT * FROM books''')
+            rows = cursor.fetchall()
+            for row in rows:
+                print(row)
+
         print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
     else:
         print("All fields are required!")
     
-    
-    # saving book into database
-    cursor.execute('''INSERT INTO books(title, author, genre,  isbn)
-                    VALUES(?,?,?,?)''',
-                   (title, author, genre, isbn)
-                   )
-    
-    conn.commit()
-
-    cursor.execute('''SELECT * FROM books''')
-
-    rows = cursor.fetchall()
-
-    for row in rows:
-        print(row)
 
 
 def search_book(title_entry, genre_entry, author_entry, isbn_entry):
