@@ -224,6 +224,8 @@ def navigate_to(phase):
         return_phase()
     elif phase == "Home":
         home_phase()
+    elif phase == "Settings":
+        settings_phase()
 
 
 def add_phase():
@@ -550,6 +552,39 @@ def home_phase():
     greeting = f"{get_greeting()}, Welcome to Zigla's LMS"
     greeting_label = tk.Label(root, text=greeting, font=theme["greeting_font"], bg=theme["background"], fg="#333")
     greeting_label.pack(expand=True)
+
+
+def settings_phase():
+    print("Settings phase activated")
+    root.title("Zigla's LMS - Settings")
+    
+    nav_frame = tk.Frame(root, bg="#cccccc", height=50)
+    nav_frame.pack(side="top", fill="x")
+    
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
+    for btn_text in buttons:
+        btn = tk.Button(
+            nav_frame, 
+            text=btn_text, 
+            bg=theme["button_bg"], 
+            font=theme["button_font"], 
+            relief="groove", 
+            width=12, 
+            command=lambda b=btn_text: navigate_to(b)
+        )
+        btn.pack(side="left", padx=5, pady=5)
+    
+    settings_btn = tk.Button(
+        nav_frame, 
+        text="Settings", 
+        bg=theme["button_bg"], 
+        font=theme["button_font"], 
+        relief="groove", 
+        width=12, 
+        command=lambda: navigate_to("Settings")
+    )
+    settings_btn.pack(side="right", padx=5, pady=5)
+
 
 
 def open_search_result(search):
