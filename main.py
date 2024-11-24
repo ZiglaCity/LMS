@@ -135,7 +135,7 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
 
         search = cursor.fetchall()
         if not search:
-            messagebox.showinfo("Search", "Input at least one field to search!")
+            messagebox.showinfo("Search", "No such book found")
             print("No such book found")
         else:
             open_search_result(search)
@@ -591,10 +591,15 @@ def open_search_result(search):
     tree.heading("Genre", text="Genre")
     tree.heading("Author", text="Author")
     tree.heading("ISBN", text="ISBN")
-    tree.heading("Is_borrowed", text="is_borrowed")
+    tree.heading("Is_borrowed", text="Is_borrowed")
     tree.heading("Borrower_id", text="Borrower_id")
 
     tree.pack(fill=tk.BOTH, expand=True)
+
+    scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
 
     for rows in search:
         tree.insert("", tk.END, values=rows)
