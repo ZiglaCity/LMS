@@ -135,13 +135,17 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
 
         search = cursor.fetchall()
         if not search:
+            messagebox.showinfo("Search", "Input at least one field to search!")
             print("No such book found")
+        else:
+            open_search_result(search)
 
         for row in search:
             print(row)
 
             
     else:
+        messagebox.showinfo("Search", "Input at least one field to search!")
         print("Input at least one field to search!")
 
 def borrow_action(entries):
@@ -546,6 +550,54 @@ def home_phase():
     greeting = f"{get_greeting()}, Welcome to Zigla's LMS"
     greeting_label = tk.Label(root, text=greeting, font=theme["greeting_font"], bg=theme["background"], fg="#333")
     greeting_label.pack(expand=True)
+
+
+def open_search_result(search):
+    for widgets in root.winfo_children():
+        widgets.destroy()
+    print("Home phase activated")
+    root.title("Zigla's LMS- Search Result")
+    
+    nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
+    nav_frame.pack(side="top", fill="x")
+    
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
+    for btn_text in buttons:
+        btn = tk.Button(
+            nav_frame, 
+            text=btn_text, 
+            bg=theme["button_bg"], 
+            font=theme["button_font"], 
+            relief="groove", 
+            width=12, 
+            command=lambda b=btn_text: navigate_to(b)
+        )
+        btn.pack(side="left", padx=5, pady=5)
+    
+    settings_btn = tk.Button(
+        nav_frame, 
+        text="Settings", 
+        bg=theme["button_bg"], 
+        font=theme["button_font"], 
+        relief="groove", 
+        width=12, 
+        command=lambda: navigate_to("Settings")
+    )
+    settings_btn.pack(side="right", padx=5, pady=5)
+
+    tree = ttk.Treeview(root, columns=("ID", "Title", "Genre", "Author", "ISBN", "Is_borrowed", "Borrower_id"), show="headings")
+    tree.heading("ID", text="ID")
+    tree.heading("Title", text="Title")
+    tree.heading("Genre", text="Genre")
+    tree.heading("Author", text="Author")
+    tree.heading("ISBN", text="ISBN")
+    tree.heading("Is_borrowed", text="is_borrowed")
+    tree.heading("Borrower_id", text="Borrower_id")
+
+    tree.pack(fill=tk.BOTH, expand=True)
+
+    for rows in search:
+        tree.insert("", tk.END, values=rows)
 
 
 
