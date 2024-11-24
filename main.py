@@ -31,10 +31,10 @@ cursor = conn.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS books (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT,
-                author TEXT,
                 genre TEXT,
+                author TEXT,
                 isbn TEXT,
-                is_borrowed BOOLEAN,
+                is_borrowed BOOLEAN DEFAULT 0,
                 borrower_id INTEGER
     
 )''') 
@@ -87,20 +87,21 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
     genre = genre_entry.get().strip()
     author = author_entry.get().strip()
     isbn = isbn_entry.get().strip()
+    if not isbn:
+        isbn = None
+    is_borrowed = False
 
-    if title and genre and author:
-        if not isbn:
-            isbn = None
-            # saving book into database
-            cursor.execute('''INSERT INTO books(title, author, genre,  isbn)
-                            VALUES(?,?,?,?)''',
-                        (title, author, genre, isbn)
-                        ) 
-            conn.commit()
-            cursor.execute('''SELECT * FROM books''')
-            rows = cursor.fetchall()
-            for row in rows:
-                print(row)
+    if title and genre and author: 
+        # saving book into database
+        cursor.execute('''INSERT INTO books(title, genre, author,   isbn, is_borrowed, borrower_id)
+                        VALUES(?,?,?,?, ?, ?)''',
+                    (title, genre, author, isbn, is_borrowed, None)
+                    ) 
+        conn.commit()
+        cursor.execute('''SELECT * FROM books''')
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
 
         print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
     else:
