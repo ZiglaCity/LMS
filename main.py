@@ -118,6 +118,29 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
 
     if title or genre or author or isbn:
         print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
+        if title and not genre and not author:
+            cursor.execute('''SELECT * FROM books WHERE title = ?''', (title,))
+        elif genre and not title and not author:
+            cursor.execute('''SELECT * FROM books WHERE genre = ?''', (genre,))
+        elif author and not genre and not title:
+            cursor.execute('''SELECT * FROM books WHERE author = ?''', (author,))
+        elif title and author and not genre:
+            cursor.execute('''SELECT * FROM books WHERE title = ? AND author = ?''', (title, author))
+        elif title and genre and not author:
+            cursor.execute('''SELECT * FROM books WHERE title = ? AND genre = ?''', (title, genre))
+        elif genre and author and not title:
+            cursor.execute('''SELECT * FROM books WHERE genre = ? AND author = ?''', (genre, author))
+        else:
+            cursor.execute('''SELECT * FROM books WHERE title = ? AND genre = ? AND author = ?''', (title, genre, author))
+
+        search = cursor.fetchall()
+        if not search:
+            print("No such book found")
+
+        for row in search:
+            print(row)
+
+            
     else:
         print("Input at least one field to search!")
 
