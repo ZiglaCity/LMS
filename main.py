@@ -159,6 +159,8 @@ def borrow_action(entries):
     # entries = {}
     if "Name" and "ID" and "Email" not in entries:
         messagebox.showinfo("Incorrect Details!", "Please input all borrower details to proceed")
+        return
+        
     if "Title" and "Genre" and "Author" not in entries:
         messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
         
