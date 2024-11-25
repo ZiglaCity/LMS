@@ -153,6 +153,12 @@ def borrow_action(entries):
     print("Borrow Request Submitted:")
     for field, value in data.items():
         print(f"{field.capitalize()}: {value}")
+    
+    # borrower = ["Name", "ID", "Email"]
+    # details =  ["Title", "Genre", "Author", "ISBN"]
+    # entries = {}
+    if "Name" and "ID" and "Email" not in entries:
+        messagebox.showinfo("Incorrect Details!", "Please input all borrower details to proceed")
 
 def return_action(entries):
     data = {field: entry.get() for field, entry in entries.items()}
