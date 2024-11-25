@@ -160,7 +160,19 @@ def borrow_action(entries):
     if "Name" and "ID" and "Email" not in entries:
         messagebox.showinfo("Incorrect Details!", "Please input all borrower details to proceed")
         return
-        
+    else:
+
+        cursor.execute('''
+                        INSERT INTO borrower("borrower_id", "name", "email") VALUES(?,?,?)
+        ''',  entries["ID"], entries["Name"], entries["Email"])
+
+        cursor.execute('''SELECT * FROM borrower''')
+
+        results = cursor.fetchall()
+
+        for rows in results:
+            print(rows)
+
     if "Title" and "Genre" and "Author" not in entries:
         messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
         
