@@ -40,10 +40,10 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS books (
 )''') 
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
-               borrower_id INTEGER PRIMARY KEY AUTOINCREMENT,
+               borrower_id INTEGER PRIMARY KEY,
                name TEXT,
                email TEXT,
-               returned BOOLEAN
+               is_returned BOOLEAN
                )''')
 
 
@@ -150,6 +150,7 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
 
 def borrow_action(entries):
     data = {field: entry.get() for field, entry in entries.items()}
+    print(data)
     print("Borrow Request Submitted:")
     for field, value in data.items():
         print(f"{field.capitalize()}: {value}")
@@ -157,14 +158,14 @@ def borrow_action(entries):
     # borrower = ["Name", "ID", "Email"]
     # details =  ["Title", "Genre", "Author", "ISBN"]
     # entries = {}
-    if "Name" and "ID" and "Email" not in entries:
+    if not data["name"] or not data["id"] or not data["email"]:
         messagebox.showinfo("Incorrect Details!", "Please input all borrower details to proceed")
         return
     else:
 
         cursor.execute('''
                         INSERT INTO borrower("borrower_id", "name", "email") VALUES(?,?,?)
-        ''',  entries["ID"], entries["Name"], entries["Email"])
+        ''',  (data["id"], data["name"], data["email"]))
 
         cursor.execute('''SELECT * FROM borrower''')
 
@@ -173,6 +174,16 @@ def borrow_action(entries):
         for rows in results:
             print(rows)
 
+        # cursor.execute('''INSERT INTO books(title, genre, author,   isbn, is_borrowed, borrower_id)
+        #                     VALUES(?,?,?,?, ?, ?)''',
+        #                 (title, genre, author, isbn, is_borrowed, None)
+        #                 ) 
+        #     conn.commit()
+        #     cursor.execute('''SELECT * FROM books''')
+        #     rows = cursor.fetchall()
+        #     for row in rows:
+        #         print(row)
+                
     if "Title" and "Genre" and "Author" not in entries:
         messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
         
