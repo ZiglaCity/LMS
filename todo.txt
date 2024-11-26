@@ -4,3 +4,5 @@ Add a right click feature to the searched results so that a user can directly bo
 
 Update the borrower table since a user can borrow multiple books hence changing the primary key to an autoincrement
 instead of the student_id
+
+Add a button in the borrow phase which allows user to view all borrowers details from the borrower table
