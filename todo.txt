@@ -1,0 +1,6 @@
+Add a field to the add book phase which asks the user how many times he'd wanna save a particular book
+
+Add a right click feature to the searched results so that a user can directly borrow after searching for a book
+
+Update the borrower table since a user can borrow multiple books hence changing the primary key to an autoincrement
+instead of the student_id
