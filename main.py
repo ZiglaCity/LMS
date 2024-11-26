@@ -40,10 +40,12 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS books (
 )''') 
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
-               borrower_id INTEGER PRIMARY KEY,
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               borrower_id INTEGER,
                name TEXT,
                email TEXT,
-               is_returned BOOLEAN
+               is_returned BOOLEAN,
+               FOREIGN KEY (borrower_id) REFERENCES books (borrower_id)
                )''')
 
 
