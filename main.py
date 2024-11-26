@@ -179,8 +179,29 @@ def borrow_action(entries):
         for rows in results:
             print(rows)
 
-    if "Title" and "Genre" and "Author" not in entries:
+    if not data["title"] or not data["genre"] or not data["author"]:
         messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
+    else:
+        print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
+        #get the id of the book the user is trying to borrow, and check if that book is already borrwed
+        cursor.execute('''
+                        SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ?
+                       ''', (data["title"], data["genre"], data["author"], False))
+        result = cursor.fetchone()
+        if result:
+            print(result)
+            messagebox.showinfo("Borrowed!", "Book has successfully been borrowed!")
+        else:
+            # check if the book wasnt found because it has already been borrowed or it isnt available
+            cursor.execute('''
+                        SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ?
+                       ''', (data["title"], data["genre"], data["author"]))
+            borrowed = cursor.fetchall()
+            if borrowed:
+                messagebox.showinfo("Error!", "Book already borrowed!")
+            else:
+                messagebox.showinfo("Error!", "No such book found")
+
         
 
 def return_action(entries):
