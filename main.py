@@ -98,6 +98,8 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
                     (title, genre, author, isbn, is_borrowed, None)
                     ) 
         conn.commit()
+
+        messagebox.showinfo("Saved!", "Book successfully saved!")
         cursor.execute('''SELECT * FROM books''')
         rows = cursor.fetchall()
         for row in rows:
@@ -150,6 +152,7 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
 
 def borrow_action(entries):
     data = {field: entry.get() for field, entry in entries.items()}
+    #how data looks: {'name': 'zigla ', 'id': '38895', 'email': 'asjfalk', 'title': '', 'genre': '', 'author': '', 'isbn': ''}
     print(data)
     print("Borrow Request Submitted:")
     for field, value in data.items():
@@ -174,16 +177,6 @@ def borrow_action(entries):
         for rows in results:
             print(rows)
 
-        # cursor.execute('''INSERT INTO books(title, genre, author,   isbn, is_borrowed, borrower_id)
-        #                     VALUES(?,?,?,?, ?, ?)''',
-        #                 (title, genre, author, isbn, is_borrowed, None)
-        #                 ) 
-        #     conn.commit()
-        #     cursor.execute('''SELECT * FROM books''')
-        #     rows = cursor.fetchall()
-        #     for row in rows:
-        #         print(row)
-                
     if "Title" and "Genre" and "Author" not in entries:
         messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
         
