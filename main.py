@@ -183,7 +183,7 @@ def borrow_action(entries):
         messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
     else:
         print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
-        #get the id of the book the user is trying to borrow, and check if that book is already borrwed
+        #get the id of one of the books the user is trying to borrow if that book is not already borrwed
         cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ?
                        ''', (data["title"], data["genre"], data["author"], False))
@@ -191,12 +191,12 @@ def borrow_action(entries):
         if result:
             print(result)
             messagebox.showinfo("Borrowed!", "Book has successfully been borrowed!")
-            # change the is_borrowed status to true
+            # change the is_borrowed status to true and set the borrower id in the books where the book has been borrowed
             cursor.execute('''
-                            UPDATE books SET is_borrowed = ? WHERE id = ?
-                           ''', (True, result[0]))
+                            UPDATE books SET is_borrowed = ?, borrower_id = ? WHERE id = ?
+                           ''', (True, data["id"], result[0]))
             conn.commit()
-            # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGESD TO TRUE
+            # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
             cursor.execute('''
                             SELECT * FROM books WHERE "is_borrowed" = ?
                            ''', (True,))
@@ -210,8 +210,8 @@ def borrow_action(entries):
             cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ?
                        ''', (data["title"], data["genre"], data["author"]))
-            borrowed = cursor.fetchall()
-            if borrowed:
+            book = cursor.fetchall()
+            if book:
                 messagebox.showinfo("Error!", "Book already borrowed!")
             else:
                 messagebox.showinfo("Error!", "No such book found")
