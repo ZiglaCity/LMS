@@ -191,6 +191,20 @@ def borrow_action(entries):
         if result:
             print(result)
             messagebox.showinfo("Borrowed!", "Book has successfully been borrowed!")
+            # change the is_borrowed status to true
+            cursor.execute('''
+                            UPDATE books SET is_borrowed = ? WHERE id = ?
+                           ''', (True, result[0]))
+            conn.commit()
+            # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGESD TO TRUE
+            cursor.execute('''
+                            SELECT * FROM books WHERE "is_borrowed" = ?
+                           ''', (True,))
+            x = cursor.fetchall()
+            for rows in x:
+                print(rows)
+            
+            
         else:
             # check if the book wasnt found because it has already been borrowed or it isnt available
             cursor.execute('''
