@@ -2,7 +2,7 @@ Add a field to the add book phase which asks the user how many times he'd wanna 
 
 Add a right click feature to the searched results so that a user can directly borrow after searching for a book
 
-Update the borrower table since a user can borrow multiple books hence changing the primary key to an autoincrement
-instead of the student_id
-
 Add a button in the borrow phase which allows user to view all borrowers details from the borrower table
+...while the user is viewing all borrowed books give suggesstions where the user can view books borrowed by a particular student...
+
+Update the borrwer table by setting the id primary key as the id of the the book borrowed by the student
