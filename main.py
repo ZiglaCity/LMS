@@ -660,7 +660,7 @@ def return_phase():
         entries[label.lower()] = entry
 
     return_button = ttk.Button(
-        content_frame, text="Borrow", command=lambda: return_action(entries)
+        content_frame, text="Return", command=lambda: return_action(entries)
     )
     return_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
 
