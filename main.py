@@ -166,6 +166,74 @@ def borrow_action(entries):
     if not data["name"] or not data["id"] or not data["email"]:
         messagebox.showinfo("Incorrect Details!", "Please input all borrower details to proceed")
         return
+
+    if not data["title"] or not data["genre"] or not data["author"]:
+        messagebox.showinfo("Incorrect Details!", "Please input all book details to borrow")
+
+    else:
+
+        print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
+        #get the id of one of the books the user is trying to borrow if that book is not already borrwed
+        cursor.execute('''
+                        SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ?
+                       ''', (data["title"], data["genre"], data["author"], False))
+        result = cursor.fetchone()
+
+        if result:
+            print(result)
+            messagebox.showinfo("Borrowed!", "Book has successfully been borrowed!")
+
+            # if all details are provided and book has successfully been borrowed, add user to borrower table
+            cursor.execute('''
+                            INSERT INTO borrower("borrower_id", "name", "email") VALUES(?,?,?)
+            ''',  (data["id"], data["name"], data["email"]))
+
+            cursor.execute('''SELECT * FROM borrower''')
+
+            results = cursor.fetchall()
+
+            for rows in results:
+                print(rows)
+                
+            # change the is_borrowed status to true and set the borrower id in the books where the book has been borrowed
+            cursor.execute('''
+                            UPDATE books SET is_borrowed = ?, borrower_id = ? WHERE id = ?
+                           ''', (True, data["id"], result[0]))
+            conn.commit()
+            # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
+            cursor.execute('''
+                            SELECT * FROM books WHERE "is_borrowed" = ?
+                           ''', (True,))
+            x = cursor.fetchall()
+            for rows in x:
+                print(rows)
+            
+            
+        else:
+            # check if the book wasnt found because it has already been borrowed or it isnt available
+            cursor.execute('''
+                        SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ?
+                       ''', (data["title"], data["genre"], data["author"]))
+            book = cursor.fetchall()
+            if book:
+                messagebox.showinfo("Error!", "Book already borrowed!")
+            else:
+                messagebox.showinfo("Error!", "No such book found")
+
+        
+
+def return_action(entries):
+    data = {field: entry.get() for field, entry in entries.items()}
+    print("Return Request Submitted:")
+    for field, value in data.items():
+        print(f"{field.capitalize()}: {value}")
+
+    # borrower = ["Name", "ID", "Email"]
+    # details =  ["Title", "Genre", "Author", "ISBN"]
+    # entries = {}
+    if not data["name"] or not data["id"] or not data["email"]:
+        messagebox.showinfo("Incorrect Details!", "Please input all returnee details to proceed")
+        return
     else:
 
         cursor.execute('''
@@ -216,13 +284,7 @@ def borrow_action(entries):
             else:
                 messagebox.showinfo("Error!", "No such book found")
 
-        
-
-def return_action(entries):
-    data = {field: entry.get() for field, entry in entries.items()}
-    print("Borrow Request Submitted:")
-    for field, value in data.items():
-        print(f"{field.capitalize()}: {value}")
+    
 
 
 # Main window setup
