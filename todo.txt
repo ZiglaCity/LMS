@@ -11,3 +11,6 @@ implement the settings phase:
     ...Amin name
     ...include a lock feature for delete actions
     ...theme (light or dark)
+
+implement an admin table:
+    ...to save the admin details for greeting and deleting purposes
