@@ -286,7 +286,17 @@ def return_action(entries):
             
             
         else:
-            # check if the book wasnt found because it has already been borrowed or it isnt available
+            # check if the details of the returnee is not in the borrower table
+            cursor.execute('''
+                            SELECT * FROM borrower WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ?
+            ''',  ( data["id"], data["name"], data["email"]))
+
+            x = cursor.fetchall()
+            if not x:
+                messagebox.showinfo("Incorrect Details!", "User never borrowed!")
+                return
+
+            # check if the book wasnt found because it has already been returned or it isnt available
             cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ?
                        ''', (data["title"], data["genre"], data["author"]))
