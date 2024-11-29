@@ -22,9 +22,9 @@ def get_greeting():
     if hour < 12:
         return "Good morning"
     elif hour < 18:
-        return f"Good afternoon {name}"
+        return f"Good afternoon {name.capitalize()}"
     else:
-        return f"Good evening {name}"
+        return f"Good evening {name.capitalize()}"
 
 def on_closing():
     response = messagebox.askyesno("Quit", "Do you want to quit?")
@@ -618,7 +618,7 @@ def borrow_phase():
     viewAllBorrowers_button = ttk.Button(
         content_frame, text="View Borrowers", command=lambda: viewAllBorrowers()
     )
-    viewAllBorrowers_button.grid(row=8, column=0, columnspan=2, pady=20, sticky="n")
+    viewAllBorrowers_button.grid(row=8, column=0, columnspan=2, pady=5, sticky="n")
 
 
     def viewAllBorrowers():
