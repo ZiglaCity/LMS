@@ -515,7 +515,23 @@ def search_phase():
     )
     search_button.grid(row=4, column=0, columnspan=2, pady=10)
 
-    
+    viewAll_button = ttk.Button(
+        form_frame, 
+        text="View All", 
+        command=lambda: viewAll()
+    )
+    viewAll_button.grid(row=5, column=0, columnspan=2, pady=5)
+
+    def viewAll():
+        cursor.execute('''
+                        SELECT * FROM books
+                       ''')
+        
+        books = cursor.fetchall()
+
+        open_search_result(books)
+
+
 def borrow_phase():
     root.title("Zigla's LMS - Borrow Books")
 
@@ -758,6 +774,7 @@ def settings_phase():
     code_entry = tk.Entry(settings_frame)
     code_entry.grid(row=2, column=2, sticky="ew")
 
+    
 
 def open_search_result(search):
     for widgets in root.winfo_children():
