@@ -733,6 +733,30 @@ def settings_phase():
     )
     settings_btn.pack(side="right", padx=5, pady=5)
 
+    title_label = tk.Label(
+        root, 
+        text="Change Account Settings", 
+        font=("Helvetica", 16, "bold"), 
+        bg=theme["background"], 
+        anchor="center"
+    )
+    title_label.pack(pady=20)
+
+    
+    settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20)
+    settings_frame.pack(pady=20, padx=20, expand=True)
+
+    name_label = tk.Label(settings_frame, text="Admin Name")
+    name_label.grid(row=1, column=1, sticky="e")
+
+    name_entry = tk.Entry(settings_frame)
+    name_entry.grid(row=1, column=2, pady=10, sticky="ew")
+
+    passcode_label = tk.Label(settings_frame, text="Passcode")
+    passcode_label.grid(row=2, column=1, pady=10, sticky="e")
+
+    code_entry = tk.Entry(settings_frame)
+    code_entry.grid(row=2, column=2, sticky="ew")
 
 
 def open_search_result(search):
