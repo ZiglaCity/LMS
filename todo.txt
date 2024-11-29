@@ -1,5 +1,7 @@
 Add a field to the add book phase which asks the user how many times he'd wanna save a particular book
 
+Add date borrowed and date returned to the borrower table
+
 Add a right click feature to the searched results:
     ...so that a user can directly borrow after searching for a book
     ...add sorting features(sorting by title, author, genre etc)
