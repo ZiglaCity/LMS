@@ -68,14 +68,6 @@ cursor.execute('''
                passcode TEXT)
                 ''')
 
-cursor.execute('''
-        SELECT * FROM admin
-        ''') 
-admin = cursor.fetchall()
-if not admin:
-    cursor.execute('''
-                    INSERT INTO admin (id, name, passcode) VALUES(?,?,?)
-                    ''', (1, "", ""))
 
 
 defualt_theme = "light"
@@ -790,7 +782,20 @@ def settings_phase():
     )
     title_label.pack(pady=20)
 
+    cursor.execute('''
+            SELECT * FROM admin
+            ''') 
+    admin = cursor.fetchall()
+
+    if admin:
+        name = admin[0][1]
+    else:
+        name = ""
+
+
     admin_name = tk.StringVar()
+    admin_name.set(name)
+
     passcode = tk.StringVar()
 
     
@@ -827,6 +832,8 @@ def settings_phase():
             cursor.execute('''
                             INSERT INTO admin (id, name, passcode) VALUES(?,?,?)
                             ''', (1, name_entry.get(), code_entry.get()))
+            
+        conn.commit()
 
     
         cursor.execute('''
