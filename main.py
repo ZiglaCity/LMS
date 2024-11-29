@@ -605,6 +605,20 @@ def borrow_phase():
     )
     borrow_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
 
+    viewAllBorrowers_button = ttk.Button(
+        content_frame, text="View Borrowers", command=lambda: viewAllBorrowers()
+    )
+    viewAllBorrowers_button.grid(row=8, column=0, columnspan=2, pady=20, sticky="n")
+
+
+    def viewAllBorrowers():
+        cursor.execute('''
+                       SELECT * FROM borrower
+                        ''')
+        borrowers = cursor.fetchall()
+
+        open_borrower_result(borrowers)
+
 
 
 def return_phase():
@@ -828,6 +842,59 @@ def open_search_result(search):
     for rows in search:
         tree.insert("", tk.END, values=rows)
 
+
+def open_borrower_result(borrowers):
+
+    for widgets in root.winfo_children():
+        widgets.destroy()
+    print("Home phase activated")
+    root.title("Zigla's LMS- Search Result")
+    
+    nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
+    nav_frame.pack(side="top", fill="x")
+    
+    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
+    for btn_text in buttons:
+        btn = tk.Button(
+            nav_frame, 
+            text=btn_text, 
+            bg=theme["button_bg"], 
+            font=theme["button_font"], 
+            relief="groove", 
+            width=12, 
+            command=lambda b=btn_text: navigate_to(b)
+        )
+        btn.pack(side="left", padx=5, pady=5)
+    
+    settings_btn = tk.Button(
+        nav_frame, 
+        text="Settings", 
+        bg=theme["button_bg"], 
+        font=theme["button_font"], 
+        relief="groove", 
+        width=12, 
+        command=lambda: navigate_to("Settings")
+    )
+    settings_btn.pack(side="right", padx=5, pady=5)
+
+
+    tree = ttk.Treeview(root, columns=("ID", "Borrower ID", "Name", "Email", "is_returned"), show="headings")
+    tree.heading("ID", text="ID")
+    tree.heading("Borrower ID", text="Borrower ID")
+    tree.heading("Name", text="Name")
+    tree.heading("Email", text="Email")
+    tree.heading("is_returned", text="is_returned")
+    
+
+    tree.pack(fill=tk.BOTH, expand=True)
+
+    scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+
+    for rows in borrowers:
+        tree.insert("", tk.END, values=rows)
 
 
 # Run the main window
