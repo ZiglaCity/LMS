@@ -4,15 +4,27 @@ from tkinter import messagebox
 from datetime import datetime
 import sqlite3
 
+
 # Function to determine greeting based on time
 def get_greeting():
+    # check if the admin has a name to be greeted with
+    cursor.execute('''
+            SELECT * FROM admin
+            ''') 
+    admin = cursor.fetchall()
+
+    if admin:
+        name = admin[0][1]
+    else:
+        name = ""
+
     hour = datetime.now().hour
     if hour < 12:
         return "Good morning"
     elif hour < 18:
-        return "Good afternoon"
+        return f"Good afternoon {name}"
     else:
-        return "Good evening"
+        return f"Good evening {name}"
 
 def on_closing():
     response = messagebox.askyesno("Quit", "Do you want to quit?")
@@ -49,15 +61,21 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
                )''')
 
 
+cursor.execute('''
+               CREATE TABLE IF NOT EXISTS admin(
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               name TEXT,
+               passcode TEXT)
+                ''')
 
-cursor.execute('''SELECT * FROM books''')
-
-rows = cursor.fetchall()
-
-
-for row in rows:
-    print(row)
-
+cursor.execute('''
+        SELECT * FROM admin
+        ''') 
+admin = cursor.fetchall()
+if not admin:
+    cursor.execute('''
+                    INSERT INTO admin (id, name, passcode) VALUES(?,?,?)
+                    ''', (1, "", ""))
 
 
 defualt_theme = "light"
@@ -772,6 +790,9 @@ def settings_phase():
     )
     title_label.pack(pady=20)
 
+    admin_name = tk.StringVar()
+    passcode = tk.StringVar()
+
     
     settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20)
     settings_frame.pack(pady=20, padx=20, expand=True)
@@ -779,14 +800,42 @@ def settings_phase():
     name_label = tk.Label(settings_frame, text="Admin Name")
     name_label.grid(row=1, column=1, sticky="e")
 
-    name_entry = tk.Entry(settings_frame)
+    name_entry = tk.Entry(settings_frame, textvariable=admin_name)
     name_entry.grid(row=1, column=2, pady=10, sticky="ew")
 
     passcode_label = tk.Label(settings_frame, text="Passcode")
     passcode_label.grid(row=2, column=1, pady=10, sticky="e")
 
-    code_entry = tk.Entry(settings_frame)
+    code_entry = tk.Entry(settings_frame, textvariable=passcode)
     code_entry.grid(row=2, column=2, sticky="ew")
+
+    save_admin = tk.Button(settings_frame, text="Save", command=lambda: saveAdmin())
+    save_admin.grid(row=3, column=2)
+
+    def saveAdmin():
+        cursor.execute('''
+                SELECT * FROM admin
+                ''') 
+        admin = cursor.fetchall()
+
+        if admin:
+            cursor.execute('''
+                            UPDATE admin SET "name" = ?,  "passcode" = ? WHERE id = ?
+                            ''', ( name_entry.get(), code_entry.get(), 1))
+        
+        else:
+            cursor.execute('''
+                            INSERT INTO admin (id, name, passcode) VALUES(?,?,?)
+                            ''', (1, name_entry.get(), code_entry.get()))
+
+    
+        cursor.execute('''
+                       SELECT * FROM admin
+                        ''') 
+           
+        admin = cursor.fetchall()
+        for rows in admin:
+            print(rows)
 
     
 
