@@ -511,16 +511,16 @@ def add_phase():
     isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
     ttk.Label(form_frame, text="Title📖", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=10, sticky="w")
-    title_entry.grid(row=0, column=1, pady=10, padx=10)
+    title_entry.grid(row=0, column=1, pady=5)
 
     ttk.Label(form_frame, text="Genre🎭", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=10, sticky="w")
-    genre_entry.grid(row=1, column=1, pady=10, padx=10)
+    genre_entry.grid(row=1, column=1, pady=5)
 
     ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=10, sticky="w")
-    author_entry.grid(row=2, column=1, pady=10, padx=10)
+    author_entry.grid(row=2, column=1, pady=5)
 
     ttk.Label(form_frame, text="ISBN🔖", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=10, sticky="w")
-    isbn_entry.grid(row=3, column=1, pady=10, padx=10)
+    isbn_entry.grid(row=3, column=1, pady=5)
 
     save_button = ttk.Button(
         form_frame, 
@@ -828,33 +828,35 @@ def return_phase():
     entries = {}
 
     
-    returner_frame = ttk.Labelframe(root, text="Input returnee details", padding=20)
+    returner_frame = ttk.Labelframe(root, text="Input returnee details",  padding=20, style="Modern.TLabelframe")
     returner_frame.pack(pady=20, padx=20, expand=True)
 
     for i, label in enumerate(returner):
-        tk.Label(returner_frame, text=label, font=("Arial", 14), bg="white").grid(
+        tk.Label(returner_frame, text=label, anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
-        entry = ttk.Entry(returner_frame, font=("Arial", 14))
-        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entry = ttk.Entry(returner_frame,  width=theme["entry_width"])
+        entry.grid(row=i, column=1, pady=5)
         entries[label.lower()] = entry
 
 
-    content_frame = ttk.Labelframe(root, text="Input book details", padding=20)
+    content_frame = ttk.Labelframe(root, text="Input book details",  padding=20, style="Modern.TLabelframe")
     content_frame.pack(pady=20, padx=20, expand=True)
 
     for i, label in enumerate(details):
-        tk.Label(content_frame, text=label, font=("Arial", 14), bg="white").grid(
+        tk.Label(content_frame, text=label,anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
-        entry = ttk.Entry(content_frame, font=("Arial", 14))
-        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entry = ttk.Entry(content_frame, width=theme["entry_width"])
+        entry.grid(row=i, column=1, pady=5)
         entries[label.lower()] = entry
 
     return_button = ttk.Button(
         content_frame, text="Return", command=lambda: return_action(entries)
     )
     return_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
+
+    global_style()
 
 
 def home_phase():
