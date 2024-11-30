@@ -596,14 +596,14 @@ def search_phase():
 
     search_button = ttk.Button(
         form_frame,
-        text="Search🔍",
+        text="🔍Search",
         command=lambda: search_book(title_entry, genre_entry, author_entry, isbn_entry)
     )
     search_button.grid(row=4, column=0, columnspan=2, pady=10)
 
     view_all_button = ttk.Button(
         form_frame,
-        text="View All📚",
+        text="📚View All",
         command=lambda: view_all(cursor, open_search_result)
     )
     view_all_button.grid(row=5, column=0, columnspan=2, pady=5)
