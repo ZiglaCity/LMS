@@ -567,8 +567,7 @@ def add_phase():
     )
 
 
-        
-
+    
 def search_phase():
     print("Search phase activated")
     root.title("Zigla's LMS - Search Books")
@@ -952,23 +951,60 @@ def settings_phase():
     passcode = tk.StringVar()
 
     
-    settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20)
+    settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20, style="Modern.TLabelframe")
     settings_frame.pack(pady=20, padx=20, expand=True)
 
-    name_label = tk.Label(settings_frame, text="Admin Name")
+    name_label = ttk.Label(settings_frame, text="Admin Name", anchor="w", font=theme["label_font"], width=10)
     name_label.grid(row=1, column=1, sticky="e")
 
-    name_entry = tk.Entry(settings_frame, textvariable=admin_name)
-    name_entry.grid(row=1, column=2, pady=10, sticky="ew")
+    name_entry = ttk.Entry(settings_frame, textvariable=admin_name, width=theme["entry_width"])
+    name_entry.grid(row=1, column=2, pady=10)
 
-    passcode_label = tk.Label(settings_frame, text="Passcode")
+    passcode_label = ttk.Label(settings_frame, text="Passcode" , anchor="w", font=theme["label_font"], width=10)
     passcode_label.grid(row=2, column=1, pady=10, sticky="e")
 
-    code_entry = tk.Entry(settings_frame, textvariable=passcode)
-    code_entry.grid(row=2, column=2, sticky="ew")
+    code_entry = ttk.Entry(settings_frame, textvariable=passcode, width=theme["entry_width"])
+    code_entry.grid(row=2, column=2)
 
-    save_admin = tk.Button(settings_frame, text="Save", command=lambda: saveAdmin())
+    save_admin = ttk.Button(settings_frame, text="Save", style="Form.TButton", command=lambda: saveAdmin())
     save_admin.grid(row=3, column=2)
+
+    style = ttk.Style()
+
+    style.configure(
+        "Modern.TLabelframe",
+        font=("Helvetica", 14, "bold"), 
+        background="#f9f9f9",
+        foreground="#333", 
+        relief="ridge",
+        padding=10 
+    )
+    style.configure(
+        "Modern.TLabelframe.Label",
+        background="#f9f9f9",
+        foreground="#333",
+        font=("Helvetica", 16, "bold")
+    )
+
+    style.configure(
+        "TEntry",
+        font=("Helvetica", 12),  
+        padding=5
+    )
+
+    style.configure(
+        "TButton",
+        font=("Helvetica", 12, "bold"),
+        background="#4CAF50",
+        foreground="white",
+        padding=10
+    )
+    style.map(
+        "TButton",
+        background=[("active", "#45a049")],
+        relief=[("pressed", "sunken"), ("!pressed", "raised")]
+    )
+
 
     def saveAdmin():
         cursor.execute('''
@@ -1136,8 +1172,6 @@ def open_borrower_result(borrowers):
 
     for row in borrowers:
         tree.insert("", tk.END, values=row)
-
-
 
 
 # Run the main window
