@@ -69,6 +69,44 @@ cursor.execute('''
                 ''')
 
 
+def global_style():
+    style = ttk.Style()
+
+    style.configure(
+        "Modern.TLabelframe",
+        font=("Helvetica", 14, "bold"), 
+        background="#f9f9f9",
+        foreground="#333", 
+        relief="ridge",
+        padding=10 
+    )
+    style.configure(
+        "Modern.TLabelframe.Label",
+        background="#f9f9f9",
+        foreground="#333",
+        font=("Helvetica", 16, "bold")
+    )
+
+    style.configure(
+        "TEntry",
+        font=("Helvetica", 12),  
+        padding=5
+    )
+
+    style.configure(
+        "TButton",
+        font=("Helvetica", 12, "bold"),
+        background="#4CAF50",
+        foreground="white",
+        padding=10
+    )
+    style.map(
+        "TButton",
+        background=[("active", "#45a049")],
+        relief=[("pressed", "sunken"), ("!pressed", "raised")]
+    )
+
+
 
 defualt_theme = "light"
 def apply_light_theme():
@@ -674,6 +712,7 @@ def borrow_phase():
         )
         btn.pack(side="left", padx=5, pady=5)
 
+
     settings_btn = tk.Button(
         nav_frame,
         text="Settings",
@@ -698,35 +737,34 @@ def borrow_phase():
     details =  ["Title", "Genre", "Author", "ISBN"]
     entries = {}
 
-    
-    borrower_frame = ttk.Labelframe(root, text="Input borrower details", padding=20)
-    borrower_frame.pack(pady=20, padx=20, expand=True)
+    borrower_frame = ttk.Labelframe(root, text="Input borrower details", padding=20, style="Modern.TLabelframe")
+    borrower_frame.pack(pady=0, padx=20, expand=True)
 
     for i, label in enumerate(borrower):
-        tk.Label(borrower_frame, text=label, font=("Arial", 14), bg="white").grid(
+        tk.Label(borrower_frame, text=label,  anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
-        entry = ttk.Entry(borrower_frame, font=("Arial", 14))
-        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entry = ttk.Entry(borrower_frame, width=theme["entry_width"])
+        entry.grid(row=i, column=1, pady=5)
         entries[label.lower()] = entry
 
 
-    content_frame = ttk.Labelframe(root, text="Input book details", padding=20)
-    content_frame.pack(pady=20, padx=20, expand=True)
+    content_frame = ttk.Labelframe(root, text="Input book details", padding=20, style="Modern.TLabelframe")
+    content_frame.pack(pady=0, padx=20, expand=True)
 
 
-    for i, label in enumerate(details):
-        tk.Label(content_frame, text=label, font=("Arial", 14), bg="white").grid(
+    for i, label in enumerate(details): 
+        tk.Label(content_frame, text=label, anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
-        entry = ttk.Entry(content_frame, font=("Arial", 14))
-        entry.grid(row=i, column=1, pady=5, sticky="ew")
+        entry = ttk.Entry(content_frame, width=theme["entry_width"])
+        entry.grid(row=i, column=1, pady=5)
         entries[label.lower()] = entry
 
     borrow_button = ttk.Button(
         content_frame, text="Borrow", command=lambda: borrow_action(entries)
     )
-    borrow_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
+    borrow_button.grid(row=7, column=0, columnspan=2, pady=5, sticky="n")
 
     viewAllBorrowers_button = ttk.Button(
         content_frame, text="View Borrowers", command=lambda: viewAllBorrowers()
@@ -742,6 +780,7 @@ def borrow_phase():
 
         open_borrower_result(borrowers)
 
+    global_style()
 
 
 def return_phase():
@@ -816,7 +855,6 @@ def return_phase():
         content_frame, text="Return", command=lambda: return_action(entries)
     )
     return_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
-
 
 
 def home_phase():
