@@ -14,9 +14,5 @@ Add a button in the borrow phase which allows user to view all borrowers details
 ...while the user is viewing all borrowed books give suggesstions where the user can view books borrowed by a particular student...
 
 implement the settings phase:
-    ...Admin name
     ...include a lock feature for delete actions
     ...theme (light or dark)
-
-implement an admin table:
-    ...to save the admin details for greeting and deleting purposes
