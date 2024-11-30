@@ -20,7 +20,7 @@ def get_greeting():
 
     hour = datetime.now().hour
     if hour < 12:
-        return "Good morning"
+        return f"Good morning {name.capitalize()}"
     elif hour < 18:
         return f"Good afternoon {name.capitalize()}"
     else:
