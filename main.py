@@ -463,27 +463,27 @@ def add_phase():
         root, 
         text="📚 Fill form to add books", 
         padding=20, 
-        style="Form.TLabelframe"
+        style="Modern.TLabelframe"
     )
     form_frame.pack(pady=20, padx=20, anchor="center", ipadx=10, ipady=10)
 
     # Entry fields
-    title_entry = ttk.Entry(form_frame, width=30)
-    genre_entry = ttk.Entry(form_frame, width=30)
-    author_entry = ttk.Entry(form_frame, width=30)
-    isbn_entry = ttk.Entry(form_frame, width=30)
+    title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
     # Labels and Entries Grid
-    ttk.Label(form_frame, text="📖 Title:", anchor="w", style="Form.TLabel").grid(row=0, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Title📖", anchor="w", font=theme["label_font"]).grid(row=0, column=0, pady=10, sticky="w")
     title_entry.grid(row=0, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="🎭 Genre:", anchor="w", style="Form.TLabel").grid(row=1, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Genre🎭", anchor="w", font=theme["label_font"]).grid(row=1, column=0, pady=10, sticky="w")
     genre_entry.grid(row=1, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="✍️ Author:", anchor="w", style="Form.TLabel").grid(row=2, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"]).grid(row=2, column=0, pady=10, sticky="w")
     author_entry.grid(row=2, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="🔖 ISBN:", anchor="w", style="Form.TLabel").grid(row=3, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="ISBN🔖", anchor="w", font=theme["label_font"]).grid(row=3, column=0, pady=10, sticky="w")
     isbn_entry.grid(row=3, column=1, pady=10, padx=10)
 
     # Save Button
@@ -495,20 +495,41 @@ def add_phase():
     )
     save_button.grid(row=4, column=0, columnspan=2, pady=20)
 
-
     style = ttk.Style()
 
-    # Labelframe styling
-    style.configure("Form.TLabelframe", font=("Helvetica", 14, "bold"), foreground="#444", background="#f7f7f7")
-    style.configure("Form.TLabelframe.Label", font=("Helvetica", 16, "bold"), foreground="#333")
+    style.configure(
+        "Modern.TLabelframe",
+        font=("Helvetica", 14, "bold"), 
+        background="#f9f9f9",
+        foreground="#333", 
+        relief="ridge",
+        padding=10 
+    )
+    style.configure(
+        "Modern.TLabelframe.Label",
+        background="#f9f9f9",
+        foreground="#333",
+        font=("Helvetica", 16, "bold")
+    )
 
-    # Label styling
-    style.configure("Form.TLabel", font=("Helvetica", 12), foreground="#555", background="#f7f7f7")
+    style.configure(
+        "TEntry",
+        font=("Helvetica", 12),  
+        padding=5
+    )
 
-    # Entry and Button styling
-    style.configure("TEntry", padding=5, font=("Helvetica", 12))
-    style.configure("Form.TButton", font=("Helvetica", 12, "bold"), background="#4CAF50", foreground="#fff")
-    style.map("Form.TButton", background=[("active", "#45a049")])
+    style.configure(
+        "TButton",
+        font=("Helvetica", 12, "bold"),
+        background="#4CAF50",
+        foreground="white",
+        padding=10
+    )
+    style.map(
+        "TButton",
+        background=[("active", "#45a049")],
+        relief=[("pressed", "sunken"), ("!pressed", "raised")]
+    )
 
 
         
