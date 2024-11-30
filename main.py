@@ -971,16 +971,15 @@ def open_search_result(search):
         "Modern.Treeview.Heading",
         font=("Helvetica", 14, "bold"),
         background="#4CAF50",
-        foreground="black",  # White text for headers
+        foreground="black",
         padding=5
     )
     style.map(
         "Modern.Treeview.Heading",
-        background=[("active", "#45a049")],  # Hover effect on headers
+        background=[("active", "#45a049")],
         relief=[("pressed", "sunken"), ("!pressed", "flat")]
     )
 
-    # Treeview Scrollbar Style
     style.configure("Vertical.TScrollbar", gripcount=0, background="#ccc", troughcolor="#e6e6e6")
 
 
@@ -1021,23 +1020,27 @@ def open_borrower_result(borrowers):
     settings_btn.pack(side="right", padx=5, pady=5)
 
 
-    tree = ttk.Treeview(root, columns=("ID", "Borrower ID", "Name", "Email", "is_returned"), show="headings")
-    tree.heading("ID", text="ID")
-    tree.heading("Borrower ID", text="Borrower ID")
-    tree.heading("Name", text="Name")
-    tree.heading("Email", text="Email")
-    tree.heading("is_returned", text="is_returned")
-    
+    tree = ttk.Treeview(
+        root, 
+        columns=("ID", "Borrower ID", "Name", "Email", "is_returned"), 
+        show="headings", 
+        style="Modern.Treeview"
+    )
 
-    tree.pack(fill=tk.BOTH, expand=True)
+    headings = ["ID", "Borrower ID", "Name", "Email", "is_returned"]
+    for col in headings:
+        tree.heading(col, text=col)
+        tree.column(col, anchor="center", width=150) 
 
     scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
     tree.configure(yscrollcommand=scrollbar.set)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
+    tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 10), pady=10)
 
-    for rows in borrowers:
-        tree.insert("", tk.END, values=rows)
+    for row in borrowers:
+        tree.insert("", tk.END, values=row)
+
 
 
 # Run the main window
