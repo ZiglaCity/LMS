@@ -925,15 +925,6 @@ def settings_phase():
     )
     settings_btn.pack(side="right", padx=5, pady=5)
 
-    title_label = tk.Label(
-        root, 
-        text="Change Account Settings", 
-        font=("Helvetica", 16, "bold"), 
-        bg=theme["background"], 
-        anchor="center"
-    )
-    title_label.pack(pady=20)
-
     cursor.execute('''
             SELECT * FROM admin
             ''') 
