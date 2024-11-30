@@ -553,11 +553,9 @@ def search_phase():
     )
     title_label.pack(pady=20)
 
-    form_frame = ttk.Labelframe(root, text="Input any detial to search", padding=20)
+    form_frame = ttk.Labelframe(root, text="Input any detail to search", padding=20, style="Modern.TLabelframe")
     form_frame.pack(pady=20, padx=20, expand=True)
-    # fix frame style later
-    form_frame.configure(style="TLabelframe")
-        
+
     title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
@@ -566,36 +564,33 @@ def search_phase():
     ttk.Label(form_frame, text="Title:", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
     title_entry.grid(row=0, column=1, pady=5)
 
-    ttk.Label(form_frame, text="Genre:", anchor="w",font=theme["label_font"], width=10).grid(row=1, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Genre:", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=5, sticky="w")
     genre_entry.grid(row=1, column=1, pady=5)
 
-    ttk.Label(form_frame, text="Author:", anchor="w",font=theme["label_font"], width=10).grid(row=2, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Author:", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=5, sticky="w")
     author_entry.grid(row=2, column=1, pady=5)
 
-    ttk.Label(form_frame, text="ISBN:", anchor="w",font=theme["label_font"], width=10).grid(row=3, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="ISBN:", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=5, sticky="w")
     isbn_entry.grid(row=3, column=1, pady=5)
 
     search_button = ttk.Button(
-        form_frame, 
-        text="Search", 
+        form_frame,
+        text="Search",
         command=lambda: search_book(title_entry, genre_entry, author_entry, isbn_entry)
     )
     search_button.grid(row=4, column=0, columnspan=2, pady=10)
 
-    viewAll_button = ttk.Button(
-        form_frame, 
-        text="View All", 
-        command=lambda: viewAll()
+    view_all_button = ttk.Button(
+        form_frame,
+        text="View All",
+        command=lambda: view_all(cursor, open_search_result)
     )
-    viewAll_button.grid(row=5, column=0, columnspan=2, pady=5)
+    view_all_button.grid(row=5, column=0, columnspan=2, pady=5)
 
-    def viewAll():
-        cursor.execute('''
-                        SELECT * FROM books
-                       ''')
-        
+
+    def view_all(cursor, open_search_result):
+        cursor.execute("SELECT * FROM books")
         books = cursor.fetchall()
-
         open_search_result(books)
 
 
@@ -1040,6 +1035,7 @@ def open_borrower_result(borrowers):
 
     for row in borrowers:
         tree.insert("", tk.END, values=row)
+
 
 
 
