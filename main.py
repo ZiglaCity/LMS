@@ -458,34 +458,60 @@ def add_phase():
     )
     title_label.pack(pady=20)
 
-    form_frame = ttk.Labelframe(root, text="Fill form to add books", padding=20)
-    form_frame.pack(pady=20, padx=20, expand=True)
-        
-    title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
-    genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
-    author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
-    isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
+    # Center frame with a modern style
+    form_frame = ttk.LabelFrame(
+        root, 
+        text="📚 Fill form to add books", 
+        padding=20, 
+        style="Form.TLabelframe"
+    )
+    form_frame.pack(pady=20, padx=20, anchor="center", ipadx=10, ipady=10)
 
-    ttk.Label(form_frame, text="Title:", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
-    title_entry.grid(row=0, column=1, pady=5)
+    # Entry fields
+    title_entry = ttk.Entry(form_frame, width=30)
+    genre_entry = ttk.Entry(form_frame, width=30)
+    author_entry = ttk.Entry(form_frame, width=30)
+    isbn_entry = ttk.Entry(form_frame, width=30)
 
-    ttk.Label(form_frame, text="Genre:", anchor="w",font=theme["label_font"], width=10).grid(row=1, column=0, pady=5, sticky="w")
-    genre_entry.grid(row=1, column=1, pady=5)
+    # Labels and Entries Grid
+    ttk.Label(form_frame, text="📖 Title:", anchor="w", style="Form.TLabel").grid(row=0, column=0, pady=10, sticky="w")
+    title_entry.grid(row=0, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="Author:", anchor="w",font=theme["label_font"], width=10).grid(row=2, column=0, pady=5, sticky="w")
-    author_entry.grid(row=2, column=1, pady=5)
+    ttk.Label(form_frame, text="🎭 Genre:", anchor="w", style="Form.TLabel").grid(row=1, column=0, pady=10, sticky="w")
+    genre_entry.grid(row=1, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="ISBN:", anchor="w",font=theme["label_font"], width=10).grid(row=3, column=0, pady=5, sticky="w")
-    isbn_entry.grid(row=3, column=1, pady=5)
+    ttk.Label(form_frame, text="✍️ Author:", anchor="w", style="Form.TLabel").grid(row=2, column=0, pady=10, sticky="w")
+    author_entry.grid(row=2, column=1, pady=10, padx=10)
 
+    ttk.Label(form_frame, text="🔖 ISBN:", anchor="w", style="Form.TLabel").grid(row=3, column=0, pady=10, sticky="w")
+    isbn_entry.grid(row=3, column=1, pady=10, padx=10)
+
+    # Save Button
     save_button = ttk.Button(
         form_frame, 
-        text="Save", 
+        text="💾 Save Book", 
+        style="Form.TButton",
         command=lambda: save_book(title_entry, genre_entry, author_entry, isbn_entry)
     )
-    save_button.grid(row=4, column=0, columnspan=2, pady=10)
+    save_button.grid(row=4, column=0, columnspan=2, pady=20)
 
-    
+
+    style = ttk.Style()
+
+    # Labelframe styling
+    style.configure("Form.TLabelframe", font=("Helvetica", 14, "bold"), foreground="#444", background="#f7f7f7")
+    style.configure("Form.TLabelframe.Label", font=("Helvetica", 16, "bold"), foreground="#333")
+
+    # Label styling
+    style.configure("Form.TLabel", font=("Helvetica", 12), foreground="#555", background="#f7f7f7")
+
+    # Entry and Button styling
+    style.configure("TEntry", padding=5, font=("Helvetica", 12))
+    style.configure("Form.TButton", font=("Helvetica", 12, "bold"), background="#4CAF50", foreground="#fff")
+    style.map("Form.TButton", background=[("active", "#45a049")])
+
+
+        
 
 def search_phase():
     print("Search phase activated")
@@ -910,24 +936,27 @@ def open_search_result(search):
     )
     settings_btn.pack(side="right", padx=5, pady=5)
 
-    tree = ttk.Treeview(root, columns=("ID", "Title", "Genre", "Author", "ISBN", "Is_borrowed", "Borrower_id"), show="headings")
-    tree.heading("ID", text="ID")
-    tree.heading("Title", text="Title")
-    tree.heading("Genre", text="Genre")
-    tree.heading("Author", text="Author")
-    tree.heading("ISBN", text="ISBN")
-    tree.heading("Is_borrowed", text="Is_borrowed")
-    tree.heading("Borrower_id", text="Borrower_id")
-
-    tree.pack(fill=tk.BOTH, expand=True)
+    tree = ttk.Treeview(
+        root, 
+        columns=("ID", "Title", "Genre", "Author", "ISBN", "Is_borrowed", "Borrower_id"), 
+        show="headings", 
+        style="Modern.Treeview"
+    )
+    
+    headings = ["ID", "Title", "Genre", "Author", "ISBN", "Is_borrowed", "Borrower_id"]
+    for col in headings:
+        tree.heading(col, text=col)
+        tree.column(col, anchor="center", width=120) 
 
     scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
     tree.configure(yscrollcommand=scrollbar.set)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
+    tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 10), pady=10)
 
-    for rows in search:
-        tree.insert("", tk.END, values=rows)
+    for row in search:
+        tree.insert("", tk.END, values=row)
+
 
 
 def open_borrower_result(borrowers):
