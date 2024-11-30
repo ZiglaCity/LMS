@@ -561,28 +561,28 @@ def search_phase():
     author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
-    ttk.Label(form_frame, text="📖 Title:", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Title📖", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=5, sticky="w")
     title_entry.grid(row=0, column=1, pady=5)
 
-    ttk.Label(form_frame, text="🗂️ Genre:", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Genre🗂️", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=5, sticky="w")
     genre_entry.grid(row=1, column=1, pady=5)
 
-    ttk.Label(form_frame, text="✍️ Author:", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=5, sticky="w")
     author_entry.grid(row=2, column=1, pady=5)
 
-    ttk.Label(form_frame, text="📇 ISBN:", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=5, sticky="w")
+    ttk.Label(form_frame, text="ISBN📇", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=5, sticky="w")
     isbn_entry.grid(row=3, column=1, pady=5)
 
     search_button = ttk.Button(
         form_frame,
-        text="🔍 Search",
+        text="Search🔍",
         command=lambda: search_book(title_entry, genre_entry, author_entry, isbn_entry)
     )
     search_button.grid(row=4, column=0, columnspan=2, pady=10)
 
     view_all_button = ttk.Button(
         form_frame,
-        text="📚 View All",
+        text="View All📚",
         command=lambda: view_all(cursor, open_search_result)
     )
     view_all_button.grid(row=5, column=0, columnspan=2, pady=5)
