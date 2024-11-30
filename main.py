@@ -465,28 +465,25 @@ def add_phase():
         padding=20, 
         style="Modern.TLabelframe"
     )
-    form_frame.pack(pady=20, padx=20, anchor="center", ipadx=10, ipady=10)
+    form_frame.pack(pady=20, padx=20, expand=True)
 
-    # Entry fields
     title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     author_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     isbn_entry = ttk.Entry(form_frame, width=theme["entry_width"])
 
-    # Labels and Entries Grid
-    ttk.Label(form_frame, text="Title📖", anchor="w", font=theme["label_font"]).grid(row=0, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Title📖", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=10, sticky="w")
     title_entry.grid(row=0, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="Genre🎭", anchor="w", font=theme["label_font"]).grid(row=1, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Genre🎭", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=10, sticky="w")
     genre_entry.grid(row=1, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"]).grid(row=2, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=10, sticky="w")
     author_entry.grid(row=2, column=1, pady=10, padx=10)
 
-    ttk.Label(form_frame, text="ISBN🔖", anchor="w", font=theme["label_font"]).grid(row=3, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="ISBN🔖", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=10, sticky="w")
     isbn_entry.grid(row=3, column=1, pady=10, padx=10)
 
-    # Save Button
     save_button = ttk.Button(
         form_frame, 
         text="💾 Save Book", 
@@ -574,8 +571,14 @@ def search_phase():
     )
     title_label.pack(pady=20)
 
-    form_frame = ttk.Labelframe(root, text="Input any detail to search", padding=20, style="Modern.TLabelframe")
+    form_frame = ttk.LabelFrame(
+        root, 
+        text="🔍Input any detail to search", 
+        padding=20, 
+        style="Modern.TLabelframe"
+    )
     form_frame.pack(pady=20, padx=20, expand=True)
+
 
     title_entry = ttk.Entry(form_frame, width=theme["entry_width"])
     genre_entry = ttk.Entry(form_frame, width=theme["entry_width"])
