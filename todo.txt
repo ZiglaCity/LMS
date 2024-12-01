@@ -18,6 +18,6 @@ Add a right click feature to the searched results:
 Add a button in the borrow phase which allows user to view all borrowers details from the borrower table
 ...while the user is viewing all borrowed books give suggesstions where the user can view books borrowed by a particular student...
 
-implement the settings phase:
-    ...include a lock feature for delete actions
+update the settings phase:
+    ...update the functionility of the passcode to avoid overwriting it in the database everytime the user changes the admin name
     ...theme (light or dark)
