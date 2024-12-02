@@ -328,6 +328,16 @@ def return_action(entries):
         result = cursor.fetchone()
 
         if result:
+            # check if the details of the returnee is not in the borrower table
+            cursor.execute('''
+                            SELECT * FROM borrower WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ?
+            ''',  ( data["id"], data["name"], data["email"]))
+
+            x = cursor.fetchall()
+            if not x:
+                messagebox.showinfo("Incorrect Details!", "User never borrowed!")
+                return
+            
             print(result)
             messagebox.showinfo("Returned!", "Book has successfully been returned!")
 
