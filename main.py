@@ -563,43 +563,9 @@ def search_phase():
         cursor.execute("SELECT * FROM books")
         books = cursor.fetchall()
         open_search_result(books)
-
     
-    style = ttk.Style()
+    global_style()
 
-    style.configure(
-        "Modern.TLabelframe",
-        font=("Helvetica", 14, "bold"), 
-        background="#f9f9f9",
-        foreground="#333", 
-        relief="ridge",
-        padding=10 
-    )
-    style.configure(
-        "Modern.TLabelframe.Label",
-        background="#f9f9f9",
-        foreground="#333",
-        font=("Helvetica", 16, "bold")
-    )
-
-    style.configure(
-        "TEntry",
-        font=("Helvetica", 12),  
-        padding=5
-    )
-
-    style.configure(
-        "TButton",
-        font=("Helvetica", 12, "bold"),
-        background="#4CAF50",
-        foreground="white",
-        padding=10
-    )
-    style.map(
-        "TButton",
-        background=[("active", "#45a049")],
-        relief=[("pressed", "sunken"), ("!pressed", "raised")]
-    )
 
 
 
