@@ -4,8 +4,6 @@ Add date borrowed and date returned to the borrower table
 
 add emojis to the borrow, return and settings label and button text
 
-remove all reduncancies and repetitions and optimize code
-
 use the same cases as that of database to improve search
 
 Add a right click feature to the searched results:
