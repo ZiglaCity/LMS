@@ -227,7 +227,6 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
 
         for row in search:
             print(row)
-
             
     else:
         messagebox.showinfo("Search", "Input at least one field to search!")
@@ -301,8 +300,7 @@ def borrow_action(entries):
                 messagebox.showinfo("Error!", "Book already borrowed!")
             else:
                 messagebox.showinfo("Error!", "No such book found")
-
-        
+  
 
 def return_action(entries):
     data = {field: entry.get() for field, entry in entries.items()}
@@ -365,8 +363,7 @@ def return_action(entries):
                            ''', (True,))
             x = cursor.fetchall()
             for rows in x:
-                print(rows)
-            
+                print(rows)     
             
         else:
             # check if the details of the returnee is not in the borrower table
@@ -390,7 +387,6 @@ def return_action(entries):
                 messagebox.showinfo("Error!", "No such book found")
 
 
-
 # Main window setup
 def main_window():
     global root
@@ -402,7 +398,6 @@ def main_window():
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
 
-    
     # Navigation bar frame
     nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
     nav_frame.pack(side="top", fill="x")
@@ -571,8 +566,6 @@ def search_phase():
     global_style()
 
 
-
-
 def borrow_phase():
     root.title("Zigla's LMS - Borrow Books")
 
@@ -720,7 +713,6 @@ def settings_phase():
     admin_name.set(name)
 
     passcode = tk.StringVar()
-
     
     settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20, style="Modern.TLabelframe")
     settings_frame.pack(pady=20, padx=20, expand=True)
@@ -761,7 +753,6 @@ def settings_phase():
             
         conn.commit()
 
-    
         cursor.execute('''
                        SELECT * FROM admin
                         ''') 
@@ -770,7 +761,6 @@ def settings_phase():
         for rows in admin:
             print(rows)
 
-    
 
 def open_search_result(search):
     for widgets in root.winfo_children():
