@@ -770,32 +770,7 @@ def settings_phase():
     print("Settings phase activated")
     root.title("Zigla's LMS - Settings")
     
-    nav_frame = tk.Frame(root, bg="#cccccc", height=50)
-    nav_frame.pack(side="top", fill="x")
-    
-    buttons = ["Add", "Search", "Borrow", "Return", "Home"]
-    for btn_text in buttons:
-        btn = tk.Button(
-            nav_frame, 
-            text=btn_text, 
-            bg=theme["button_bg"], 
-            font=theme["button_font"], 
-            relief="groove", 
-            width=12, 
-            command=lambda b=btn_text: navigate_to(b)
-        )
-        btn.pack(side="left", padx=5, pady=5)
-    
-    settings_btn = tk.Button(
-        nav_frame, 
-        text="Settings", 
-        bg=theme["button_bg"], 
-        font=theme["button_font"], 
-        relief="groove", 
-        width=12, 
-        command=lambda: navigate_to("Settings")
-    )
-    settings_btn.pack(side="right", padx=5, pady=5)
+    create_nav_bar(root, navigate_to, theme)
 
     cursor.execute('''
             SELECT * FROM admin
