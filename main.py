@@ -68,6 +68,8 @@ cursor.execute('''
                passcode TEXT)
                 ''')
 
+conn.commit()
+
 
 def global_style():
     style = ttk.Style()
@@ -130,7 +132,7 @@ def apply_light_theme():
         }
         
 
-# define a nav bar to be used in all phases to reduce reduncancy
+# define a nav bar to be used in all phases to reduce redundancy
 def create_nav_bar(root, navigate_to, theme):
     nav_frame = tk.Frame(root, bg="#cccccc", height=50)
     nav_frame.pack(side="top", fill="x")
@@ -267,6 +269,8 @@ def borrow_action(entries):
                             INSERT INTO borrower("borrower_id", "name", "email") VALUES(?,?,?)
             ''',  (data["id"], data["name"], data["email"]))
 
+            conn.commit()
+
             cursor.execute('''SELECT * FROM borrower''')
 
             results = cursor.fetchall()
@@ -285,8 +289,7 @@ def borrow_action(entries):
                            ''', (True,))
             x = cursor.fetchall()
             for rows in x:
-                print(rows)
-            
+                print(rows)         
             
         else:
             # check if the book wasnt found because it has already been borrowed or it isnt available
@@ -334,6 +337,7 @@ def return_action(entries):
             cursor.execute('''
                             UPDATE borrower SET is_returned = ? WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ?
             ''',  (True, data["id"], data["name"], data["email"]))
+            conn.commit()
 
             cursor.execute('''SELECT * FROM borrower''')
 
