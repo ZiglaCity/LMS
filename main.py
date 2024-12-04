@@ -500,7 +500,7 @@ def add_phase():
     ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=10, sticky="w")
     author_entry.grid(row=2, column=1, pady=5)
 
-    ttk.Label(form_frame, text="ISBN🔖", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="ISBN📇", anchor="w", font=theme["label_font"], width=10).grid(row=3, column=0, pady=10, sticky="w")
     isbn_entry.grid(row=3, column=1, pady=5)
 
     save_button = ttk.Button(
