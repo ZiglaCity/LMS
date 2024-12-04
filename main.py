@@ -494,7 +494,7 @@ def add_phase():
     ttk.Label(form_frame, text="Title📖", anchor="w", font=theme["label_font"], width=10).grid(row=0, column=0, pady=10, sticky="w")
     title_entry.grid(row=0, column=1, pady=5)
 
-    ttk.Label(form_frame, text="Genre🎭", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=10, sticky="w")
+    ttk.Label(form_frame, text="Genre🗂️", anchor="w", font=theme["label_font"], width=10).grid(row=1, column=0, pady=10, sticky="w")
     genre_entry.grid(row=1, column=1, pady=5)
 
     ttk.Label(form_frame, text="Author✍️", anchor="w", font=theme["label_font"], width=10).grid(row=2, column=0, pady=10, sticky="w")
