@@ -632,12 +632,12 @@ def borrow_phase():
         entries[label.lower()] = entry
 
     borrow_button = ttk.Button(
-        content_frame, text="Borrow", command=lambda: borrow_action(entries)
+        content_frame, text="📜 Borrow", command=lambda: borrow_action(entries)
     )
     borrow_button.grid(row=7, column=0, columnspan=2, pady=5, sticky="n")
 
     viewAllBorrowers_button = ttk.Button(
-        content_frame, text="View Borrowers", command=lambda: viewAllBorrowers()
+        content_frame, text="📚 View Borrowers", command=lambda: viewAllBorrowers()
     )
     viewAllBorrowers_button.grid(row=8, column=0, columnspan=2, pady=5, sticky="n")
 
@@ -710,7 +710,7 @@ def return_phase():
         entries[label.lower()] = entry
 
     return_button = ttk.Button(
-        content_frame, text="Return", command=lambda: return_action(entries)
+        content_frame, text="📜 Return", command=lambda: return_action(entries)
     )
     return_button.grid(row=7, column=0, columnspan=2, pady=20, sticky="n")
 
@@ -765,7 +765,7 @@ def settings_phase():
     code_entry = ttk.Entry(settings_frame, textvariable=passcode, width=theme["entry_width"])
     code_entry.grid(row=2, column=2)
 
-    save_admin = ttk.Button(settings_frame, text="Save", style="Form.TButton", command=lambda: saveAdmin())
+    save_admin = ttk.Button(settings_frame, text="💾 Save", style="Form.TButton", command=lambda: saveAdmin())
     save_admin.grid(row=3, column=2)
 
     global_style()
