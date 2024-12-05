@@ -753,13 +753,13 @@ def settings_phase():
     settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20, style="Modern.TLabelframe")
     settings_frame.pack(pady=20, padx=20, expand=True)
 
-    name_label = ttk.Label(settings_frame, text="Admin Name", anchor="w", font=theme["label_font"], width=10)
+    name_label = ttk.Label(settings_frame, text="AdminName🧑", anchor="w", font=theme["label_font"], width=12)
     name_label.grid(row=1, column=1, sticky="e")
 
     name_entry = ttk.Entry(settings_frame, textvariable=admin_name, width=theme["entry_width"])
     name_entry.grid(row=1, column=2, pady=10)
 
-    passcode_label = ttk.Label(settings_frame, text="Passcode" , anchor="w", font=theme["label_font"], width=10)
+    passcode_label = ttk.Label(settings_frame, text="Passcode🕵️‍♂️" , anchor="w", font=theme["label_font"], width=12)
     passcode_label.grid(row=2, column=1, pady=10, sticky="e")
 
     code_entry = ttk.Entry(settings_frame, textvariable=passcode, width=theme["entry_width"])
