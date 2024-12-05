@@ -594,11 +594,24 @@ def borrow_phase():
     details =  ["Title", "Genre", "Author", "ISBN"]
     entries = {}
 
+    borrower_with_emojis = {
+        "Name": "Name 🧑",
+        "ID": "ID 🆔",
+        "Email": "Email 📧",
+    }
+
+    details_with_emojis = {
+        "Title": "Title 📖",
+        "Genre": "Genre 🎭",
+        "Author": "Author ✍️",
+        "ISBN": "ISBN 🔢",
+    }
+
     borrower_frame = ttk.Labelframe(root, text="Input borrower details", padding=20, style="Modern.TLabelframe")
     borrower_frame.pack(pady=0, padx=20, expand=True)
 
     for i, label in enumerate(borrower):
-        tk.Label(borrower_frame, text=label,  anchor="w", font=theme["label_font"], width=10).grid(
+        tk.Label(borrower_frame, text=borrower_with_emojis[label],  anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
         entry = ttk.Entry(borrower_frame, width=theme["entry_width"])
@@ -611,7 +624,7 @@ def borrow_phase():
 
 
     for i, label in enumerate(details): 
-        tk.Label(content_frame, text=label, anchor="w", font=theme["label_font"], width=10).grid(
+        tk.Label(content_frame, text=details_with_emojis[label], anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
         entry = ttk.Entry(content_frame, width=theme["entry_width"])
@@ -718,11 +731,11 @@ def settings_phase():
     else:
         name = ""
 
-
+    passcode = tk.StringVar()
     admin_name = tk.StringVar()
     admin_name.set(name)
+    print(admin_name.get())
 
-    passcode = tk.StringVar()
     
     settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20, style="Modern.TLabelframe")
     settings_frame.pack(pady=20, padx=20, expand=True)
