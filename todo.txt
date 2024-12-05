@@ -4,7 +4,7 @@ Add date borrowed and date returned to the borrower table
 
 Make the scroll bar in the borrwer and search books result longer on the vertical
 
-add emojis to the borrow, return and settings label and button text
+add emojis to all button text
 
 use the same cases as that of database to improve search
 
