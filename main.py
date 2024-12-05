@@ -909,6 +909,33 @@ def open_borrower_result(borrowers):
         tree.insert("", tk.END, values=row)
 
 
+    style = ttk.Style()
+
+    style.configure(
+        "Modern.Treeview",
+        font=("Helvetica", 12), 
+        rowheight=30,
+        background="#f9f9f9",
+        foreground="#333",
+        fieldbackground="#f4f4f4"
+    )
+    style.configure(
+        "Modern.Treeview.Heading",
+        font=("Helvetica", 14, "bold"),
+        background="#4CAF50",
+        foreground="black",
+        padding=5
+    )
+    style.map(
+        "Modern.Treeview.Heading",
+        background=[("active", "#45a049")],
+        relief=[("pressed", "sunken"), ("!pressed", "flat")]
+    )
+
+    style.configure("Vertical.TScrollbar", gripcount=0, background="#ccc", troughcolor="#e6e6e6")
+
+
+
 # Run the main window
 if __name__ == "__main__":
     main_window()
