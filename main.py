@@ -672,12 +672,25 @@ def return_phase():
     details =  ["Title", "Genre", "Author", "ISBN"]
     entries = {}
 
+    returner_with_emojis = {
+        "Name": "Name 🧑",
+        "ID": "ID 🆔",
+        "Email": "Email 📧",
+    }
+
+    details_with_emojis = {
+        "Title": "Title 📖",
+        "Genre": "Genre 🎭",
+        "Author": "Author ✍️",
+        "ISBN": "ISBN 🔢",
+    }
+
     
     returner_frame = ttk.Labelframe(root, text="Input returnee details",  padding=20, style="Modern.TLabelframe")
     returner_frame.pack(pady=20, padx=20, expand=True)
 
     for i, label in enumerate(returner):
-        tk.Label(returner_frame, text=label, anchor="w", font=theme["label_font"], width=10).grid(
+        tk.Label(returner_frame, text=returner_with_emojis[label], anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
         entry = ttk.Entry(returner_frame,  width=theme["entry_width"])
@@ -689,7 +702,7 @@ def return_phase():
     content_frame.pack(pady=20, padx=20, expand=True)
 
     for i, label in enumerate(details):
-        tk.Label(content_frame, text=label,anchor="w", font=theme["label_font"], width=10).grid(
+        tk.Label(content_frame, text=details_with_emojis[label],anchor="w", font=theme["label_font"], width=10).grid(
             row=i, column=0,pady=5, sticky="e"
         )
         entry = ttk.Entry(content_frame, width=theme["entry_width"])
