@@ -27,14 +27,14 @@ A personalized home screen greets the user by their admin name for a welcoming e
 
 
 ## Installation
-    Clone this repository to your local machine:
-        git clone https://github.com/ZiglaCity/ZigsLMS.git 
+### Clone this repository to your local machine:
+    git clone https://github.com/ZiglaCity/LMS.git 
 
-    Navigate to the project directory:
-        cd ZigsLMS   
+### Navigate to the project directory:
+    cd ZigsLMS   
 
-    Run the application:
-        python main.py  
+### Run the application:
+    python main.py  
 
 
 ## Usage
@@ -55,10 +55,10 @@ Start at the "Home" phase, which welcomes you with a personalized greeting using
 
 ### **Settings Phase** :
 #### **Access the "Settings" phase to:**
-Change the admin name securely.
-Update the passcode without overwriting critical information in the database.
-Toggle between light and dark themes for a customized user interface.
-View details about the author for credits or support information.
+    Change the admin name securely.
+    Update the passcode without overwriting critical information in the database.
+    Toggle between light and dark themes for a customized user interface.
+    View details about the author for credits or support information.
 
 
 ## Technologies Used
@@ -71,16 +71,16 @@ View details about the author for credits or support information.
 Contributions are welcome! To contribute:
 
 ## Fork the repository.
-    ### **Create a feature branch:**
-        git checkout -b feature-name  
+### **Create a feature branch:**
+    git checkout -b feature-name  
 
-    ### **Commit your changes:**
-        git commit -m "Add your message here" 
+### **Commit your changes:**
+    git commit -m "Add your message here" 
 
-    ### **Push to your branch:**
-        git push origin feature-name  
+### **Push to your branch:**
+    git push origin feature-name  
 
-    ### **Create a pull request.**
+### **Create a pull request.**
 
 
 ## License
