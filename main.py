@@ -339,8 +339,6 @@ def return_action(entries):
                 messagebox.showinfo("Incorrect Details!", "User never borrowed!")
                 return
             
-            # print(result)
-            # messagebox.showinfo("Returned!", "Book has successfully been returned!")
 
             # if all details are provided and book has successfully been returned, remove user to borrower table or set is_returned to true, to still keep track of all borrowers
             cursor.execute('''
@@ -831,8 +829,12 @@ def open_search_result(search):
     tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 10), pady=10)
 
+    def capitalized_row(text):
+        return text.title()
+    
     for row in search:
-        tree.insert("", tk.END, values=row)
+        capitalized_words = [capitalized_row(str(item)) for item in row]
+        tree.insert("", tk.END, values=capitalized_words)
 
     style = ttk.Style()
 
