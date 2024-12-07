@@ -196,10 +196,10 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
 
 
 def search_book(title_entry, genre_entry, author_entry, isbn_entry):
-    title = title_entry.get().strip()
-    genre = genre_entry.get().strip()
-    author = author_entry.get().strip()
-    isbn = isbn_entry.get().strip()
+    title = title_entry.get().strip().title()
+    genre = genre_entry.get().strip().title()
+    author = author_entry.get().strip().title()
+    isbn = isbn_entry.get().strip().title()
 
     if title or genre or author or isbn:
         print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
