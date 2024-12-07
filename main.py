@@ -233,7 +233,7 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
         print("Input at least one field to search!")
 
 def borrow_action(entries):
-    data = {field: entry.get() for field, entry in entries.items()}
+    data = {field: entry.get().strip().title() for field, entry in entries.items()}
     #how data looks: {'name': 'zigla ', 'id': '38895', 'email': 'asjfalk', 'title': '', 'genre': '', 'author': '', 'isbn': ''}
     print(data)
     print("Borrow Request Submitted:")
