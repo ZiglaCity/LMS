@@ -304,7 +304,7 @@ def borrow_action(entries):
   
 
 def return_action(entries):
-    data = {field: entry.get() for field, entry in entries.items()}
+    data = {field: entry.get().strip().title() for field, entry in entries.items()}
     print("Return Request Submitted:")
     for field, value in data.items():
         print(f"{field.capitalize()}: {value}")
