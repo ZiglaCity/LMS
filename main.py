@@ -300,6 +300,7 @@ def borrow_action(entries):
                 messagebox.showinfo("Error!", "Book already borrowed!")
             else:
                 messagebox.showinfo("Error!", "No such book found")
+    conn.commit()
   
 
 def return_action(entries):
@@ -338,8 +339,8 @@ def return_action(entries):
                 messagebox.showinfo("Incorrect Details!", "User never borrowed!")
                 return
             
-            print(result)
-            messagebox.showinfo("Returned!", "Book has successfully been returned!")
+            # print(result)
+            # messagebox.showinfo("Returned!", "Book has successfully been returned!")
 
             # if all details are provided and book has successfully been returned, remove user to borrower table or set is_returned to true, to still keep track of all borrowers
             cursor.execute('''
@@ -359,6 +360,10 @@ def return_action(entries):
                             UPDATE books SET is_borrowed = ?, borrower_id = ? WHERE id = ?
                            ''', (False, None, result[0]))
             conn.commit()
+
+            print(result)
+            messagebox.showinfo("Returned!", "Book has successfully been returned!")
+
             # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
             cursor.execute('''
                             SELECT * FROM books WHERE "is_borrowed" = ?
@@ -393,8 +398,10 @@ def return_action(entries):
             book = cursor.fetchall()
             if book:
                 messagebox.showinfo("Error!", "Book already returned!")
+                return
             else:
                 messagebox.showinfo("Error!", "No such book found")
+                return
 
 
 # Main window setup
