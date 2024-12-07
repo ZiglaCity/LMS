@@ -19,46 +19,46 @@
     A personalized home screen greets the user by their admin name for a welcoming experience.
 
 ### Settings Phase:
-    #### **Make administrative changes such as**:
-        1.Updating the admin name.
-        2.Changing the passcode securely.
-        3.Switching between light and dark themes.
-        4.Viewing the "About Author" section for developer details.
+#### **Make administrative changes such as**:
+    1.Updating the admin name.
+    2.Changing the passcode securely.
+    3.Switching between light and dark themes.
+    4.Viewing the "About Author" section for developer details.
 
 
 ## Installation
-    ### **Clone this repository to your local machine**:
+    Clone this repository to your local machine:
         git clone https://github.com/ZiglaCity/ZigsLMS.git 
 
-    ### **Navigate to the project directory**:
+    Navigate to the project directory:
         cd ZigsLMS   
 
-    ### **Run the application**:
+    Run the application:
         python main.py  
 
 
 ## Usage
-    ### **Add Books**:
-        Navigate to the "Add Book" phase to add books with all required details.
+### **Add Books**:
+    Navigate to the "Add Book" phase to add books with all required details.
 
-    ### **Search for Books**:
-        Use filters to locate books by title, author, or genre in the "Search" phase.
+### **Search for Books**:
+    Use filters to locate books by title, author, or genre in the "Search" phase.
 
-    ### **Borrow and Track**:
-        Head to the "Borrow" phase to record borrowers' details along with the borrowed books.
+### **Borrow and Track**:
+    Head to the "Borrow" phase to record borrowers' details along with the borrowed books.
 
-    ### **Return Books**:
-        In the "Return" phase, log the returnee’s details and mark the book as returned.
+### **Return Books**:
+    In the "Return" phase, log the returnee’s details and mark the book as returned.
 
-    ### **Personalized Home**:
-        Start at the "Home" phase, which welcomes you with a personalized greeting using your admin name.
+### **Personalized Home**:
+    Start at the "Home" phase, which welcomes you with a personalized greeting using your admin name.
 
-    ### **Settings Phase** :
-        #### **Access the "Settings" phase to:**
-            Change the admin name securely.
-            Update the passcode without overwriting critical information in the database.
-            Toggle between light and dark themes for a customized user interface.
-            View details about the author for credits or support information.
+### **Settings Phase** :
+#### **Access the "Settings" phase to:**
+    Change the admin name securely.
+    Update the passcode without overwriting critical information in the database.
+    Toggle between light and dark themes for a customized user interface.
+    View details about the author for credits or support information.
 
 
 ## Technologies Used
@@ -67,7 +67,7 @@
     SQLite (Database management)
 
 
-# Contributing
+## Contributing
 Contributions are welcome! To contribute:
 
 ## Fork the repository.
