@@ -903,12 +903,12 @@ def open_borrower_result(borrowers):
 
     tree = ttk.Treeview(
         root, 
-        columns=("ID", "Borrower ID", "Name", "Email", "is_returned"), 
+        columns=("ID", "Borrower ID", "Name", "Email", "is_returned", "book_id"), 
         show="headings", 
         style="Modern.Treeview"
     )
 
-    headings = ["ID", "Borrower ID", "Name", "Email", "is_returned"]
+    headings = ["ID", "Borrower ID", "Name", "Email", "is_returned", "book_id"]
     for col in headings:
         tree.heading(col, text=col)
         tree.column(col, anchor="center", width=150) 
