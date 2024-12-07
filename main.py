@@ -32,7 +32,7 @@ def on_closing():
         if conn:
             cursor.close()
             conn.close()
-            print("Connection closed")
+            # print("Connection closed")
         root.destroy()
 
 
@@ -183,14 +183,14 @@ def save_book(title_entry, genre_entry, author_entry, isbn_entry):
         conn.commit()
 
         messagebox.showinfo("Saved!", "Book successfully saved!")
-        cursor.execute('''SELECT * FROM books''')
-        rows = cursor.fetchall()
-        for row in rows:
-            print(row)
+        # cursor.execute('''SELECT * FROM books''')
+        # rows = cursor.fetchall()
+        # for row in rows:
+        #     print(row)
 
-        print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
+        # print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
     else:
-        print("All fields are required!")
+        # print("All fields are required!")
         messagebox.askokcancel("Prompt", "Please input book details to be saved.")
     
 
@@ -202,7 +202,7 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
     isbn = isbn_entry.get().strip().title()
 
     if title or genre or author or isbn:
-        print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
+        # print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
         if title and not genre and not author:
             cursor.execute('''SELECT * FROM books WHERE title = ?''', (title,))
         elif genre and not title and not author:
@@ -221,24 +221,24 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
         search = cursor.fetchall()
         if not search:
             messagebox.showinfo("Search", "No such book found")
-            print("No such book found")
+            # print("No such book found")
         else:
             open_search_result(search)
 
-        for row in search:
-            print(row)
+        # for row in search:
+        #     print(row)
             
     else:
         messagebox.showinfo("Search", "Input at least one field to search!")
-        print("Input at least one field to search!")
+        # print("Input at least one field to search!")
 
 def borrow_action(entries):
     data = {field: entry.get().strip().title() for field, entry in entries.items()}
     #how data looks: {'name': 'zigla ', 'id': '38895', 'email': 'asjfalk', 'title': '', 'genre': '', 'author': '', 'isbn': ''}
-    print(data)
-    print("Borrow Request Submitted:")
-    for field, value in data.items():
-        print(f"{field.capitalize()}: {value}")
+    # print(data)
+    # print("Borrow Request Submitted:")
+    # for field, value in data.items():
+    #     print(f"{field.capitalize()}: {value}")
     
     # borrower = ["Name", "ID", "Email"]
     # details =  ["Title", "Genre", "Author", "ISBN"]
@@ -252,7 +252,7 @@ def borrow_action(entries):
 
     else:
 
-        print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
+        # print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
         #get the id of one of the books the user is trying to borrow if that book is not already borrwed
         cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ?
@@ -260,7 +260,7 @@ def borrow_action(entries):
         result = cursor.fetchone()
 
         if result:
-            print(result)
+            # print(result)
             messagebox.showinfo("Borrowed!", "Book has successfully been borrowed!")
 
             # if all details are provided and book has successfully been borrowed, add user to borrower table
@@ -274,8 +274,8 @@ def borrow_action(entries):
 
             results = cursor.fetchall()
 
-            for rows in results:
-                print(rows)
+            # for rows in results:
+            #     print(rows)
                 
             # change the is_borrowed status to true and set the borrower id in the books where the book has been borrowed
             cursor.execute('''
@@ -283,12 +283,12 @@ def borrow_action(entries):
                            ''', (True, data["id"], result[0]))
             conn.commit()
             # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
-            cursor.execute('''
-                            SELECT * FROM books WHERE "is_borrowed" = ?
-                           ''', (True,))
-            x = cursor.fetchall()
-            for rows in x:
-                print(rows)         
+            # cursor.execute('''
+            #                 SELECT * FROM books WHERE "is_borrowed" = ?
+            #                ''', (True,))
+            # x = cursor.fetchall()
+            # for rows in x:
+            #     print(rows)         
             
         else:
             # check if the book wasnt found because it has already been borrowed or it isnt available
@@ -305,9 +305,9 @@ def borrow_action(entries):
 
 def return_action(entries):
     data = {field: entry.get().strip().title() for field, entry in entries.items()}
-    print("Return Request Submitted:")
-    for field, value in data.items():
-        print(f"{field.capitalize()}: {value}")
+    # print("Return Request Submitted:")
+    # for field, value in data.items():
+    #     print(f"{field.capitalize()}: {value}")
 
     # borrower = ["Name", "ID", "Email"]
     # details =  ["Title", "Genre", "Author", "ISBN"]
@@ -321,7 +321,7 @@ def return_action(entries):
 
     else:
 
-        print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
+        # print(f'title: {data["title"]} genre: {data["genre"]} author: {data["author"]}')
         #get the id of the book the user is trying to return by using returnees details from book borrowed if that book is not returned
         cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ? AND borrower_id = ?
@@ -350,8 +350,8 @@ def return_action(entries):
 
             results = cursor.fetchall()
 
-            for rows in results:
-                print(rows)
+            # for rows in results:
+            #     print(rows)
                 
             # change the is_borrowed status to true and set the borrower id in the books where the book has been borrowed
             cursor.execute('''
@@ -359,24 +359,23 @@ def return_action(entries):
                            ''', (False, None, result[0]))
             conn.commit()
 
-            print(result)
             messagebox.showinfo("Returned!", "Book has successfully been returned!")
 
             # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
-            cursor.execute('''
-                            SELECT * FROM books WHERE "is_borrowed" = ?
-                           ''', (False,))
-            x = cursor.fetchall()
-            for rows in x:
-                print(rows)
+            # cursor.execute('''
+            #                 SELECT * FROM books WHERE "is_borrowed" = ?
+            #                ''', (False,))
+            # x = cursor.fetchall()
+            # for rows in x:
+            #     print(rows)
 
              # DEBUG: CHECK IF THE IS_RETURNED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
-            cursor.execute('''
-                            SELECT * FROM borrower WHERE "is_returned" = ?
-                           ''', (True,))
-            x = cursor.fetchall()
-            for rows in x:
-                print(rows)     
+            # cursor.execute('''
+            #                 SELECT * FROM borrower WHERE "is_returned" = ?
+            #                ''', (True,))
+            # x = cursor.fetchall()
+            # for rows in x:
+            #     print(rows)     
             
         else:
             # check if the details of the returnee is not in the borrower table
@@ -453,7 +452,7 @@ def main_window():
 def navigate_to(phase):
     for widgets in root.winfo_children():
         widgets.destroy()
-    print(f"Navigating to: {phase}")
+    # print(f"Navigating to: {phase}")
     if phase == "Add":
         add_phase()
     elif phase == "Search":
@@ -519,7 +518,6 @@ def add_phase():
     global_style()
     
 def search_phase():
-    print("Search phase activated")
     root.title("Zigla's LMS - Search Books")
     
     create_nav_bar(root, navigate_to, theme)
@@ -659,7 +657,6 @@ def borrow_phase():
 
 
 def return_phase():
-    print("Return phase activated")
     root.title("Zigla's LMS - Return Books")
 
     create_nav_bar(root, navigate_to, theme)
@@ -723,7 +720,6 @@ def return_phase():
 
 
 def home_phase():
-    print("Home phase activated")
     root.title("Zigla's LMS")
     
     create_nav_bar(root, navigate_to, theme)
@@ -734,7 +730,6 @@ def home_phase():
 
 
 def settings_phase():
-    print("Settings phase activated")
     root.title("Zigla's LMS - Settings")
     
     create_nav_bar(root, navigate_to, theme)
@@ -752,7 +747,6 @@ def settings_phase():
     passcode = tk.StringVar()
     admin_name = tk.StringVar()
     admin_name.set(name)
-    print(admin_name.get())
 
     
     settings_frame = ttk.Labelframe(root, text="Change Account Settings...", padding=20, style="Modern.TLabelframe")
@@ -799,14 +793,11 @@ def settings_phase():
                         ''') 
            
         admin = cursor.fetchall()
-        for rows in admin:
-            print(rows)
 
 
 def open_search_result(search):
     for widgets in root.winfo_children():
         widgets.destroy()
-    print("Home phase activated")
     root.title("Zigla's LMS- Search Result")
     
     create_nav_bar(root, navigate_to, theme)
@@ -864,7 +855,6 @@ def open_search_result(search):
 def open_borrower_result(borrowers):
     for widgets in root.winfo_children():
         widgets.destroy()
-    print("Home phase activated")
     root.title("Zigla's LMS- Search Result")
     
     nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
