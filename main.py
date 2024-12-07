@@ -32,7 +32,6 @@ def on_closing():
         if conn:
             cursor.close()
             conn.close()
-            # print("Connection closed")
         root.destroy()
 
 
@@ -40,16 +39,16 @@ database = "ZigsLMS.db"
 conn = sqlite3.connect(database)
 cursor = conn.cursor()
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS books (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                genre TEXT,
-                author TEXT,
-                isbn TEXT,
-                is_borrowed BOOLEAN DEFAULT 0,
-                borrower_id INTEGER
-    
-)''') 
+cursor.execute('''
+               CREATE TABLE IF NOT EXISTS books (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    title TEXT,
+                    genre TEXT,
+                    author TEXT,
+                    isbn TEXT,
+                    is_borrowed BOOLEAN DEFAULT 0,
+                    borrower_id INTEGER  )
+            ''') 
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,6 +56,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
                name TEXT,
                email TEXT,
                is_returned BOOLEAN,
+               book_id INTEGER,
+               FOREIGN KEY (book_id) REFERENCES books (id),
                FOREIGN KEY (borrower_id) REFERENCES books (borrower_id)
                )''')
 
@@ -65,8 +66,8 @@ cursor.execute('''
                CREATE TABLE IF NOT EXISTS admin(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
                name TEXT,
-               passcode TEXT)
-                ''')
+               passcode TEXT )
+            ''')
 
 conn.commit()
 
@@ -257,16 +258,17 @@ def borrow_action(entries):
         cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ?
                        ''', (data["title"], data["genre"], data["author"], False))
-        result = cursor.fetchone()
+        book_id = cursor.fetchone()
+        
 
-        if result:
+        if book_id:
             # print(result)
             messagebox.showinfo("Borrowed!", "Book has successfully been borrowed!")
 
             # if all details are provided and book has successfully been borrowed, add user to borrower table
             cursor.execute('''
-                            INSERT INTO borrower("borrower_id", "name", "email") VALUES(?,?,?)
-            ''',  (data["id"], data["name"], data["email"]))
+                            INSERT INTO borrower("borrower_id", "name", "email", book_id) VALUES(?,?,?,?)
+            ''',  (data["id"], data["name"], data["email"], book_id[0]))
 
             conn.commit()
 
@@ -280,7 +282,7 @@ def borrow_action(entries):
             # change the is_borrowed status to true and set the borrower id in the books where the book has been borrowed
             cursor.execute('''
                             UPDATE books SET is_borrowed = ?, borrower_id = ? WHERE id = ?
-                           ''', (True, data["id"], result[0]))
+                           ''', (True, data["id"], book_id[0]))
             conn.commit()
             # DEBUG: CHECK IF THE IS_BORROWED ATTRIBUTE OF THE BOOK BORROWED HAS BEEN CHANGED TO TRUE
             # cursor.execute('''
@@ -326,24 +328,24 @@ def return_action(entries):
         cursor.execute('''
                         SELECT id FROM books WHERE "title" = ? AND  "genre" = ? AND "author" = ? AND "is_borrowed" = ? AND borrower_id = ?
                        ''', (data["title"], data["genre"], data["author"], True, data["id"]))
-        result = cursor.fetchone()
+        book_id = cursor.fetchone()
+        print(book_id)
 
-        if result:
+        if book_id:
             # check if the details of the returnee is not in the borrower table
             cursor.execute('''
                             SELECT * FROM borrower WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ?
             ''',  ( data["id"], data["name"], data["email"]))
 
-            x = cursor.fetchall()
+            x = cursor.fetchone()
             if not x:
                 messagebox.showinfo("Incorrect Details!", "User never borrowed!")
                 return
             
-
-            # if all details are provided and book has successfully been returned, remove user to borrower table or set is_returned to true, to still keep track of all borrowers
+            # if all details are provided and book has successfully been returned, remove user from borrower table or set is_returned to true, to still keep track of all borrowers
             cursor.execute('''
-                            UPDATE borrower SET is_returned = ? WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ?
-            ''',  (True, data["id"], data["name"], data["email"]))
+                            UPDATE borrower SET is_returned = ? WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ? AND book_id = ?
+            ''',  (True, data["id"], data["name"], data["email"], book_id[0]))
             conn.commit()
 
             cursor.execute('''SELECT * FROM borrower''')
@@ -356,7 +358,7 @@ def return_action(entries):
             # change the is_borrowed status to true and set the borrower id in the books where the book has been borrowed
             cursor.execute('''
                             UPDATE books SET is_borrowed = ?, borrower_id = ? WHERE id = ?
-                           ''', (False, None, result[0]))
+                           ''', (False, None, book_id[0]))
             conn.commit()
 
             messagebox.showinfo("Returned!", "Book has successfully been returned!")
