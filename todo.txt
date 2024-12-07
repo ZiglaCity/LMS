@@ -6,8 +6,6 @@ Add constraints to the data types before been saved to prevent users from inputi
 
 Make the scroll bar in the borrwer and search books result longer on the vertical
 
-use the same cases as that of database to improve search
-
 Add a right click feature to the searched results:
     ...so that a user can directly borrow after searching for a book
     ...add sorting features(sorting by title, author, genre etc)
