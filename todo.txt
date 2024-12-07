@@ -4,14 +4,11 @@ Add date borrowed and date returned to the borrower table
 
 Add constraints to the data types before been saved to prevent users from inputing wrong ids
 
-Make the scroll bar in the borrwer and search books result longer on the vertical
-
 Add a right click feature to the searched results:
     ...so that a user can directly borrow after searching for a book
     ...add sorting features(sorting by title, author, genre etc)
     ...user can directly view who borrowed what book, or what book a person borrowed
 
-Add a button in the borrow phase which allows user to view all borrowers details from the borrower table
 ...while the user is viewing all borrowed books give suggesstions where the user can view books borrowed by a particular student...
 
 update the settings phase:
