@@ -2,6 +2,8 @@ Add a field to the add book phase which asks the user how many times he'd wanna 
 
 Add date borrowed and date returned to the borrower table
 
+Add constraints to the data types before been saved to prevent users from inputing wrong ids
+
 Make the scroll bar in the borrwer and search books result longer on the vertical
 
 use the same cases as that of database to improve search
