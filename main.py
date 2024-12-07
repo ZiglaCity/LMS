@@ -165,11 +165,11 @@ def create_nav_bar(root, navigate_to, theme):
 
 
 def save_book(title_entry, genre_entry, author_entry, isbn_entry):
-    # Retrieve values
-    title = title_entry.get().strip()
-    genre = genre_entry.get().strip()
-    author = author_entry.get().strip()
-    isbn = isbn_entry.get().strip()
+    # Retrieve values and capitalize each word for easy search
+    title = title_entry.get().strip().title()
+    genre = genre_entry.get().strip().title()
+    author = author_entry.get().strip().title()
+    isbn = isbn_entry.get().strip().title()
     if not isbn:
         isbn = None
     is_borrowed = False
@@ -914,8 +914,13 @@ def open_borrower_result(borrowers):
     tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 10), pady=10)
 
+
+    def capitalized_row(text):
+        return text.title()
+    
     for row in borrowers:
-        tree.insert("", tk.END, values=row)
+        capitalized_words = [capitalized_row(str(item)) for item in row]
+        tree.insert("", tk.END, values=capitalized_words)
 
 
     style = ttk.Style()
