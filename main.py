@@ -823,11 +823,10 @@ def open_search_result(search):
         tree.heading(col, text=col)
         tree.column(col, anchor="center", width=120) 
 
-    scrollbar = ttk.Scrollbar(root, orient="vertical", command=tree.yview)
+    scrollbar = ttk.Scrollbar(root, orient=tk.VERTICAL, command=tree.yview)
+    tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=10, pady=10)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
     tree.configure(yscrollcommand=scrollbar.set)
-
-    tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 10), pady=10)
 
     def capitalized_row(text):
         return text.title()
