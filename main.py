@@ -267,8 +267,8 @@ def borrow_action(entries):
 
             # if all details are provided and book has successfully been borrowed, add user to borrower table
             cursor.execute('''
-                            INSERT INTO borrower("borrower_id", "name", "email", book_id) VALUES(?,?,?,?)
-            ''',  (data["id"], data["name"], data["email"], book_id[0]))
+                            INSERT INTO borrower("borrower_id", "name", "email",is_returned, book_id) VALUES(?,?,?,?,?)
+            ''',  (data["id"], data["name"], data["email"], False, book_id[0]))
 
             conn.commit()
 
@@ -338,9 +338,23 @@ def return_action(entries):
             ''',  ( data["id"], data["name"], data["email"]))
 
             x = cursor.fetchone()
+            print(x)
             if not x:
                 messagebox.showinfo("Incorrect Details!", "User never borrowed!")
                 return
+            
+            # exit if the book has already been returned 
+            cursor.execute('''
+                            SELECT * FROM borrower WHERE "borrower_id" = ? AND  "name" = ? AND "email" = ? AND "is_returned" = ?
+                            ''',  ( data["id"], data["name"], data["email"], False))
+            
+            x = cursor.fetchone()
+            print(x)
+
+            if not x:
+                messagebox.showinfo("Returned!", "User already returned book!")
+                return
+
             
             # if all details are provided and book has successfully been returned, remove user from borrower table or set is_returned to true, to still keep track of all borrowers
             cursor.execute('''
