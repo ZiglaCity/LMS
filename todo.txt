@@ -2,8 +2,14 @@ Add a field to the add book phase which asks the user how many times he'd wanna 
 
 Add date borrowed and date returned to the borrower table
 
-Add constraints to the data types before been saved to prevent users from inputing wrong ids
+update borrower table to include book_id so the the user can return a  particular book using that id
 
+change the format of the gmail column to be in small letters
+
+Add constraints to the data types
+    ...before been saved to prevent users from inputing wrong ids
+    ... make email and id unique to prevent user inputting duplicate details
+    
 Add a right click feature to the searched results:
     ...so that a user can directly borrow after searching for a book
     ...add sorting features(sorting by title, author, genre etc)
