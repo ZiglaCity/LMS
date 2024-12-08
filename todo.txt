@@ -2,6 +2,8 @@ Add a field to the add book phase which asks the user how many times he'd wanna 
 
 Add date borrowed and date returned to the borrower table
 
+improve UI by adding some background images, etc
+
 update borrower table to include book_id so the the user can return a  particular book using that id
 
 change the format of the gmail column to be in small letters
