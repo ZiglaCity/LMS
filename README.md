@@ -2,28 +2,40 @@
 
 Zig's Library Management System (LMS) is a user-friendly application designed to streamline library operations. From managing books to tracking borrowers and customizing settings, Zig's LMS offers an efficient and intuitive solution for modern library needs.
 
+---
+
 ## Features
-### Add Books:
-Easily add new books to the library database with all relevant details.
 
-### Search:
-Search for books by title, author, or genre for quick access.
+- **Add Books**:  
+  Easily add new books to the library database with all relevant details.
 
-### Borrow:
-Record borrower details and book information to track lending history.
+- **Search**:  
+  Search for books by:
+  - Title
+  - Author
+  - Genre
 
-### Return:
-Log returnee details and update book status upon return.
+- **Borrow**:  
+  Record:
+  - Borrower details
+  - Book information  
+  to track lending history.
 
-### Home Phase:
-A personalized home screen greets the user by their admin name for a welcoming experience.
+- **Return**:  
+  Log:
+  - Returnee details  
+  - Update book status upon return.
 
-### Settings Phase:
-#### **Make administrative changes such as**:
-    1.Updating the admin name.
-    2.Changing the passcode securely.
-    3.Switching between light and dark themes.
-    4.Viewing the "About Author" section for developer details.
+- **Personalized Home Phase**:  
+  A personalized home screen greets the user by their admin name for a welcoming experience.
+
+- **Settings Phase**:  
+  - Update the admin name.
+  - Change the passcode securely.
+  - Switch between light and dark themes.
+  - View the "About Author" section for developer details.
+
+---
 
 
 ## Installation
