@@ -39,6 +39,40 @@ database = "ZigsLMS.db"
 conn = sqlite3.connect(database)
 cursor = conn.cursor()
 
+books = [
+    ("To Kill a Mockingbird", "Harper Lee", "Fiction", "9780061120084"),
+    ("1984", "George Orwell", "Dystopian", "9780451524935"),
+    ("Pride and Prejudice", "Jane Austen", "Romance", "9781503290563"),
+    ("The Great Gatsby", "F. Scott Fitzgerald", "Classic", "9780743273565"),
+    ("Moby-Dick", "Herman Melville", "Adventure", "9781503280786"),
+    ("War and Peace", "Leo Tolstoy", "Historical", "9781400079988"),
+    ("Crime and Punishment", "Fyodor Dostoevsky", "Psychological", "9780486415871"),
+    ("The Catcher in the Rye", "J.D. Salinger", "Classic", "9780316769488"),
+    ("The Hobbit", "J.R.R. Tolkien", "Fantasy", "9780547928227"),
+    ("Brave New World", "Aldous Huxley", "Dystopian", "9780060850524"),
+    ("Wuthering Heights", "Emily Brontë", "Romance", "9780141439556"),
+    ("Jane Eyre", "Charlotte Brontë", "Gothic", "9780141441146"),
+    ("The Lord of the Rings", "J.R.R. Tolkien", "Fantasy", "9780618640157"),
+    ("The Brothers Karamazov", "Fyodor Dostoevsky", "Philosophical", "9780374528379"),
+    ("Great Expectations", "Charles Dickens", "Classic", "9780141439563"),
+    ("One Hundred Years of Solitude", "Gabriel Garcia Marquez", "Magical Realism", "9780060883287"),
+    ("Les Misérables", "Victor Hugo", "Historical", "9780451419439"),
+    ("The Odyssey", "Homer", "Epic", "9780140268867"),
+    ("Frankenstein", "Mary Shelley", "Horror", "9780486282114"),
+    ("Dracula", "Bram Stoker", "Horror", "9780486411095"),
+    ("The Divine Comedy", "Dante Alighieri", "Epic", "9780142437223"),
+    ("The Iliad", "Homer", "Epic", "9780140275360"),
+    ("Anna Karenina", "Leo Tolstoy", "Romance", "9780143035008"),
+    ("The Picture of Dorian Gray", "Oscar Wilde", "Gothic", "9780141439570"),
+    ("A Tale of Two Cities", "Charles Dickens", "Historical", "9780141439600"),
+    ("The Count of Monte Cristo", "Alexandre Dumas", "Adventure", "9780140449266"),
+    ("Madame Bovary", "Gustave Flaubert", "Realism", "9780140449129"),
+    ("Don Quixote", "Miguel de Cervantes", "Adventure", "9780060934347"),
+    ("Ulysses", "James Joyce", "Modernist", "9780141182803"),
+    ("The Metamorphosis", "Franz Kafka", "Absurdist", "9780486290300")
+]
+
+
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS books (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -49,6 +83,15 @@ cursor.execute('''
                     is_borrowed BOOLEAN DEFAULT 0,
                     borrower_id INTEGER  )
             ''') 
+
+for book in books:
+    cursor.execute('''
+        INSERT INTO books (title, genre, author, isbn, is_borrowed, borrower_id)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ''', (book[0], book[1], book[2], book[3], False, None))
+
+conn.commit()
+
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS borrower(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
