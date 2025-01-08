@@ -79,14 +79,14 @@ def global_style():
         "Modern.TLabelframe",
         font=("Helvetica", 14, "bold"), 
         background="#f9f9f9",
-        foreground="#333", 
+        foreground="#333000", 
         relief="ridge",
         padding=10 
     )
     style.configure(
         "Modern.TLabelframe.Label",
         background="#f9f9f9",
-        foreground="#333",
+        foreground="#598347",
         font=("Helvetica", 16, "bold")
     )
 
@@ -100,7 +100,7 @@ def global_style():
         "TButton",
         font=("Helvetica", 12, "bold"),
         background="#4CAF50",
-        foreground="white",
+        foreground="#598347",
         padding=10
     )
     style.map(
