@@ -379,6 +379,7 @@ def main_window():
     root = tk.Tk()
     root.title("Zigla's LMS")
     root.geometry("800x400")
+    root.state("zoomed")
     root.configure(bg=theme["background"])
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
