@@ -379,11 +379,10 @@ def main_window():
     root = tk.Tk()
     root.title("Zigla's LMS")
     root.geometry("800x400")
+    root.state("zoomed")
     root.configure(bg=theme["background"])
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
-
-    # Navigation bar frame
     nav_frame = tk.Frame(root, bg=theme["navbar"], height=50)
     nav_frame.pack(side="top", fill="x")
     
