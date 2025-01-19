@@ -199,19 +199,19 @@ def search_book(title_entry, genre_entry, author_entry, isbn_entry):
     if title or genre or author or isbn:
         # print(f"Book Details:\nTitle: {title}\nGenre: {genre}\nAuthor: {author}\nISBN: {isbn}")
         if title and not genre and not author:
-            cursor.execute('''SELECT * FROM books WHERE title = ?''', (title,))
+            cursor.execute('''SELECT * FROM books WHERE title LIKE ? ''', (f"%{title}%",))
         elif genre and not title and not author:
-            cursor.execute('''SELECT * FROM books WHERE genre = ?''', (genre,))
+            cursor.execute('''SELECT * FROM books WHERE genre LIKE ?''', (f"%{genre}%",))
         elif author and not genre and not title:
-            cursor.execute('''SELECT * FROM books WHERE author = ?''', (author,))
+            cursor.execute('''SELECT * FROM books WHERE author LIKE ?''', (f"%{author}%",))
         elif title and author and not genre:
-            cursor.execute('''SELECT * FROM books WHERE title = ? AND author = ?''', (title, author))
+            cursor.execute('''SELECT * FROM books WHERE title LIKE ? AND author LIKE ?''', (f"%{title}%", f"%{author}%"))
         elif title and genre and not author:
-            cursor.execute('''SELECT * FROM books WHERE title = ? AND genre = ?''', (title, genre))
+            cursor.execute('''SELECT * FROM books WHERE title LIKE ? AND genre LIKE ?''', (f"%{title}%", f"%{genre}%"))
         elif genre and author and not title:
-            cursor.execute('''SELECT * FROM books WHERE genre = ? AND author = ?''', (genre, author))
+            cursor.execute('''SELECT * FROM books WHERE genre LIKE ? AND author LIKE ?''', (f"%{genre}%", f"%{author}%"))
         else:
-            cursor.execute('''SELECT * FROM books WHERE title = ? AND genre = ? AND author = ?''', (title, genre, author))
+            cursor.execute('''SELECT * FROM books WHERE title LIKE ? AND genre LIKE ? AND author LIKE ?''', (f"%{title}%", f"%{genre}%", f"%{author}%"))
 
         search = cursor.fetchall()
 
@@ -820,7 +820,7 @@ def open_search_result(search):
         background=[("active", "#45a049")],
         relief=[("pressed", "sunken"), ("!pressed", "flat")]
     )
-
+    
     style.configure("Vertical.TScrollbar", gripcount=0, background="#ccc", troughcolor="#e6e6e6")
 
 
